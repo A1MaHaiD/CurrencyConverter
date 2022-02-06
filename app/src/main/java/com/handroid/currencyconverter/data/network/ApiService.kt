@@ -1,7 +1,7 @@
 package com.handroid.currencyconverter.data.network
 
 import com.handroid.currencyconverter.data.network.dto.history.JsonHistoryObjectDto
-import com.handroid.currencyconverter.data.network.dto.detailinfo.CoinJsonObjectDto
+import com.handroid.currencyconverter.data.network.dto.detailinfo.CoinInfoJsonContainerDto
 import com.handroid.currencyconverter.data.network.dto.namelist.ContainerCoinDto
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -20,7 +20,7 @@ interface ApiService {
         @Query(QUERY_PARAM_API_KEY) api: String = "",
         @Query(QUERY_PARAM_FROM_SYMBOL) fSyms: String,
         @Query(QUERY_PARAM_TO_SYMBOLS) tSyms: String = CURRENCY
-    ): List<CoinJsonObjectDto>
+    ): List<CoinInfoJsonContainerDto>
 
     @GET("v2/histoday")
     suspend fun getCoinInfoPerMonth(

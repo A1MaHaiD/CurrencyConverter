@@ -1,3 +1,8 @@
 package com.handroid.currencyconverter.di
 
-sealed interface ComponentApplication
+import dagger.Component
+
+@Component
+interface ComponentApplication {
+
+}

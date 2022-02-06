@@ -4,10 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.handroid.currencyconverter.data.network.dto.detailinfo.CoinInfoDto
-import com.handroid.currencyconverter.data.network.dto.history.HistoryInfoPerDayDto
+import com.handroid.currencyconverter.data.database.model.CoinInfoModel
+import com.handroid.currencyconverter.data.database.model.HistoryInfoModel
 
-@Database(entities = [CoinInfoDto::class, HistoryInfoPerDayDto::class], version = 1, exportSchema = false)
+@Database(entities = [CoinInfoModel::class, HistoryInfoModel::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     companion object {
         private var db: AppDatabase? = null

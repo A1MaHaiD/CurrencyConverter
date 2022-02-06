@@ -5,27 +5,27 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.handroid.currencyconverter.data.network.dto.detailinfo.CoinInfoDto
-import com.handroid.currencyconverter.data.network.dto.history.HistoryInfoPerDayDto
+import com.handroid.currencyconverter.data.database.model.CoinInfoModel
+import com.handroid.currencyconverter.data.database.model.HistoryInfoModel
 
 @Dao
 interface CoinInfoDao {
 
-    @Query("SELECT * FROM currently_full_data ORDER BY lastUpdate")
-    fun getPriceList(): LiveData<List<CoinInfoDto>>
+    @Query("SELECT * FROM currently_full_data ORDER BY lastUpdate DESC")
+    suspend fun getPriceList(): LiveData<List<CoinInfoModel>>
 
     @Query("SELECT * FROM currently_full_data WHERE fromSymbol ==:fSym LIMIT 1")
-    fun getFullCoinInfo(fSym: String): LiveData<CoinInfoDto>
+    suspend fun getFullCoinInfo(fSym: String): LiveData<CoinInfoModel>
 
     @Query("SELECT * FROM history_per_day ORDER BY time")
-    fun getHistoryList(): LiveData<List<HistoryInfoPerDayDto>>
+    suspend fun getHistoryList(): LiveData<List<HistoryInfoModel>>
 
     @Query("SELECT * FROM history_per_day WHERE time ==:time LIMIT 1")
-    fun getHistoryDay(time: Int): LiveData<HistoryInfoPerDayDto>
+    suspend fun getHistoryDay(time: Int): LiveData<HistoryInfoModel>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertPriceList(priceList: List<CoinInfoDto>)
+    suspend fun insertPriceList(priceList: List<CoinInfoModel>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertHistoryList(historyList: List<HistoryInfoPerDayDto>)
+    suspend fun insertHistoryList(historyList: List<HistoryInfoModel>)
 }
