@@ -1,8 +1,8 @@
 package com.handroid.currencyconverter.data.network
 
-import com.handroid.currencyconverter.data.network.dto.history.JsonHistoryContainerDto
-import com.handroid.currencyconverter.data.network.dto.item.CoinJsonObjectDTO
-import com.handroid.currencyconverter.data.network.dto.item.ContainerCoinDto
+import com.handroid.currencyconverter.data.network.dto.history.JsonHistoryObjectDto
+import com.handroid.currencyconverter.data.network.dto.detailinfo.CoinJsonObjectDto
+import com.handroid.currencyconverter.data.network.dto.namelist.ContainerCoinDto
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -20,7 +20,7 @@ interface ApiService {
         @Query(QUERY_PARAM_API_KEY) api: String = "",
         @Query(QUERY_PARAM_FROM_SYMBOL) fSyms: String,
         @Query(QUERY_PARAM_TO_SYMBOLS) tSyms: String = CURRENCY
-    ): List<CoinJsonObjectDTO>
+    ): List<CoinJsonObjectDto>
 
     @GET("v2/histoday")
     suspend fun getCoinInfoPerMonth(
@@ -30,7 +30,7 @@ interface ApiService {
         @Query(QUERY_PARAM_LIMIT) limit: Int = 30,
         @Query(QUERY_PARAM_AGGREGATE) aggregate: Int = 1,
         @Query(QUERY_PARAM_E) e: String = QUERY_VALUE_E
-    ): List<JsonHistoryContainerDto>
+    ): List<JsonHistoryObjectDto>
 
     @GET("v2/histoday")
     suspend fun getCoinInfoPerWeek(
@@ -40,7 +40,7 @@ interface ApiService {
         @Query(QUERY_PARAM_LIMIT) limit: Int = 6,
         @Query(QUERY_PARAM_AGGREGATE) aggregate: Int = 1,
         @Query(QUERY_PARAM_E) e: String = QUERY_VALUE_E
-    ):List<JsonHistoryContainerDto>
+    ):List<JsonHistoryObjectDto>
 
     companion object {
         const val QUERY_PARAM_API_KEY = "api"

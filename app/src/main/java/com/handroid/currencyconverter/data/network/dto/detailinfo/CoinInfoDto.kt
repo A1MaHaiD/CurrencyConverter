@@ -1,9 +1,12 @@
-package com.handroid.currencyconverter.data.network.dto.list
+package com.handroid.currencyconverter.data.network.dto.detailinfo
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class CoinListDto(
+@Entity(tableName = "currently_full_data")
+class CoinInfoDto(
     @SerializedName("TYPE")
     @Expose
     val type: String? = null,
@@ -12,7 +15,8 @@ class CoinListDto(
     val market: String? = null,
     @SerializedName("FROMSYMBOL")
     @Expose
-    val fromSymbol: String? = null,
+    @PrimaryKey
+    val fromSymbol: String,
     @SerializedName("TOSYMBOL")
     @Expose
     val toSymbol: String? = null,
@@ -24,7 +28,7 @@ class CoinListDto(
     val price: Double? = null,
     @SerializedName("LASTUPDATE")
     @Expose
-    val lastUpdate: Int? = null,
+    val lastUpdate: Float? = null,
     @SerializedName("MEDIAN")
     @Expose
     val median: Double? = null,
@@ -84,7 +88,7 @@ class CoinListDto(
     val highHour: Double? = null,
     @SerializedName("LOWHOUR")
     @Expose
-    val lowhour: Double? = null,
+    val lowHour: Double? = null,
     @SerializedName("TOPTIERVOLUME24HOUR")
     @Expose
     val topTierVolume24hour: Double? = null,

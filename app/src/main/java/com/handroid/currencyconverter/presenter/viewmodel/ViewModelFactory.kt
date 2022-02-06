@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.handroid.currencyconverter.CoinApp
 
-
 /*
 class ViewModelFactory(application: CoinApp): ViewModelProvider.Factory{
 

@@ -1,11 +1,15 @@
 package com.handroid.currencyconverter.data.network.dto.history
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class HistoryInfoPerDayDto(
+@Entity(tableName = "history_per_day")
+data class HistoryInfoPerDayDto(
     @SerializedName("time")
     @Expose
+    @PrimaryKey
     val time: Int? = null,
     @SerializedName("high")
     @Expose
@@ -18,10 +22,10 @@ class HistoryInfoPerDayDto(
     val open: Double? = null,
     @SerializedName("volumefrom")
     @Expose
-    val volumefrom: Double? = null,
+    val volumeFrom: Double? = null,
     @SerializedName("volumeto")
     @Expose
-    val volumeto: Double? = null,
+    val volumeTo: Double? = null,
     @SerializedName("close")
     @Expose
     val close: Double? = null,

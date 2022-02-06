@@ -1,10 +1,9 @@
-package com.handroid.currencyconverter.data.network.dto.list
+package com.handroid.currencyconverter.data.network.dto.namelist
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import com.handroid.currencyconverter.data.network.dto.item.ContainerCoinDto
 
-data class ListOfContainerDto(
+data class CoinNameListDto(
     @SerializedName("Data")
     @Expose
     val data: List<ContainerCoinDto>? = null
