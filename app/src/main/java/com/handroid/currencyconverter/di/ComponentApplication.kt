@@ -1,0 +1,3 @@
+package com.handroid.currencyconverter.di
+
+sealed interface ComponentApplication
