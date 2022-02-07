@@ -9,7 +9,7 @@ import com.handroid.currencyconverter.domain.usecase.LoadCoinDataUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class CoinListViewModel @Inject constructor(
+class CoinViewModel @Inject constructor(
     private val repositoryImpl: CoinRepositoryImpl
 ) : ViewModel() {
 

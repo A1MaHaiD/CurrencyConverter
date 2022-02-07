@@ -9,7 +9,6 @@ import com.handroid.currencyconverter.domain.CoinRepository
 import com.handroid.currencyconverter.domain.entity.CoinInfoEntity
 import com.handroid.currencyconverter.domain.entity.HistoryInfoEntity
 import kotlinx.coroutines.delay
-import java.lang.Exception
 import javax.inject.Inject
 
 class CoinRepositoryImpl @Inject constructor(
@@ -21,33 +20,47 @@ class CoinRepositoryImpl @Inject constructor(
     override fun getCoinList(): LiveData<List<CoinInfoEntity>> {
         return Transformations.map(database.coinInfoDao().getPriceList()) {
             it.map {
-                mapper.mapModelToEntity(it)
+                mapper.mapCoinModelToEntity(it)
             }
         }
     }
 
     override fun getCoinItem(fromSymbol: String): LiveData<CoinInfoEntity> {
         return Transformations.map(database.coinInfoDao().getFullCoinInfo(fromSymbol)) {
-            mapper.mapModelToEntity(it)
+            mapper.mapCoinModelToEntity(it)
         }
     }
 
-    override fun getHistoryPerMonth(limit: Int): LiveData<HistoryInfoEntity> {
-        TODO("Not yet implemented")
+    override fun getHistoryPerDay(time: Int): LiveData<HistoryInfoEntity> {
+        return Transformations.map(database.coinInfoDao().getHistoryPerDay(time)) {
+            mapper.mapHistoryModelToEntity(it)
+        }
     }
 
-    override fun getHistoryPerWeek(limit: Int): LiveData<HistoryInfoEntity> {
-        TODO("Not yet implemented")
+    override fun getHistoryPerMonth(): LiveData<List<HistoryInfoEntity>> {
+        return Transformations.map(database.coinInfoDao().getHistoryPerPeriod()) {
+            it.map {
+                mapper.mapHistoryModelToEntity(it)
+            }
+        }
+    }
+
+    override fun getHistoryPerWeek(): LiveData<List<HistoryInfoEntity>> {
+        return Transformations.map(database.coinInfoDao().getHistoryPerPeriod()) {
+            it.map {
+                mapper.mapHistoryModelToEntity(it)
+            }
+        }
     }
 
     override suspend fun loadCoinDate() {
-        while (true){
+        while (true) {
             try {
                 val topCoins = api.apiService.getTopCoinInfo(limit = 30)
                 val fSyms = mapper.mapNameListToString(topCoins)
                 val jsonContainer = api.apiService.getFullPriceList(fSyms = fSyms)
                 val coinInfoDtoList = mapper.mapJsonToListCoinInfo(jsonContainer)
-                val dbModelList = coinInfoDtoList.map { mapper.mapDtoToModel(it) }
+                val dbModelList = coinInfoDtoList.map { mapper.mapCoinDtoToModel(it) }
                 database.coinInfoDao().insertPriceList(dbModelList)
             } catch (e: Exception) {
             }
@@ -55,7 +68,11 @@ class CoinRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun loadHistoryData() {
+    override suspend fun loadHistoryWeek() {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun loadHistoryMonth() {
         TODO("Not yet implemented")
     }
 }

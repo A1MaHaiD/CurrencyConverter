@@ -12,9 +12,13 @@ interface CoinRepository {
 
     suspend fun loadCoinDate()
 
-    suspend fun loadHistoryData()
+    suspend fun loadHistoryWeek()
 
-    fun getHistoryPerMonth(limit:Int):LiveData<HistoryInfoEntity>
+    suspend fun loadHistoryMonth()
 
-    fun getHistoryPerWeek(limit: Int):LiveData<HistoryInfoEntity>
+    fun getHistoryPerDay(time:Int): LiveData<HistoryInfoEntity>
+
+    fun getHistoryPerMonth(): LiveData<List<HistoryInfoEntity>>
+
+    fun getHistoryPerWeek(): LiveData<List<HistoryInfoEntity>>
 }

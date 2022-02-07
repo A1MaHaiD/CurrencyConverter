@@ -5,10 +5,10 @@ import javax.inject.Inject
 data class CoinInfoEntity @Inject constructor(
     val fromSymbol: String,
     val toSymbol: String?,
-    val price: Double?,
-    val lastUpdate: Float?,
-    val highDay: Double?,
-    val lowDay: Double?,
+    val price: String?,
+    val lastUpdate: String,
+    val highDay: String?,
+    val lowDay: String?,
     val lastMarket: String?,
-    val imageUrl: String?
+    val imageUrl: String
 )

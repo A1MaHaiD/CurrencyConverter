@@ -17,11 +17,11 @@ interface CoinInfoDao {
     @Query("SELECT * FROM currently_full_data WHERE fromSymbol ==:fSym LIMIT 1")
     fun getFullCoinInfo(fSym: String): LiveData<CoinInfoModel>
 
-    @Query("SELECT * FROM history_per_day ORDER BY time")
-    fun getHistoryList(): LiveData<List<HistoryInfoModel>>
+    @Query("SELECT * FROM history_per_day ORDER BY time DESC")
+    fun getHistoryPerPeriod(): LiveData<List<HistoryInfoModel>>
 
     @Query("SELECT * FROM history_per_day WHERE time ==:time LIMIT 1")
-    fun getHistoryDay(time: Int): LiveData<HistoryInfoModel>
+    fun getHistoryPerDay(time: Int): LiveData<HistoryInfoModel>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPriceList(priceList: List<CoinInfoModel>)

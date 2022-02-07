@@ -25,7 +25,7 @@ class CoinInfoDto @Inject constructor(
     val price: Double?,
     @SerializedName("LASTUPDATE")
     @Expose
-    val lastUpdate: Float?,
+    val lastUpdate: Long?,
     @SerializedName("MEDIAN")
     @Expose
     val median: Double?,

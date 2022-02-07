@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import javax.inject.Inject
 
-data class HistoryListDto @Inject constructor(
+data class HistoryInfoListDto @Inject constructor(
     @SerializedName("Aggregated")
     @Expose
     val aggregated: Boolean? = null,
@@ -16,5 +16,5 @@ data class HistoryListDto @Inject constructor(
     val timeTo: Int? = null,
     @SerializedName("Data")
     @Expose
-    val historyList: List<HistoryInfoPerDayDto>? = null
+    val historyList: List<HistoryInfoDto>? = null
 )

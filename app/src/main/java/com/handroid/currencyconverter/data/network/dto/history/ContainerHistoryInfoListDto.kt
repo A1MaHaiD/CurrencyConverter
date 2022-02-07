@@ -4,8 +4,8 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import javax.inject.Inject
 
-data class ContainerHistoryInfoDto @Inject constructor(
+data class ContainerHistoryInfoListDto @Inject constructor(
     @SerializedName("Data")
     @Expose
-    val history: HistoryListDto? = null
+    val history: HistoryInfoListDto? = null
 )
