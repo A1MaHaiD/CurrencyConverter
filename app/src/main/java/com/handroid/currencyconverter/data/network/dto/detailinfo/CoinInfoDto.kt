@@ -2,8 +2,9 @@ package com.handroid.currencyconverter.data.network.dto.detailinfo
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import javax.inject.Inject
 
-class CoinInfoDto(
+class CoinInfoDto @Inject constructor(
     @SerializedName("TYPE")
     @Expose
     val type: String?,

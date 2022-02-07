@@ -12,20 +12,20 @@ import com.handroid.currencyconverter.data.database.model.HistoryInfoModel
 interface CoinInfoDao {
 
     @Query("SELECT * FROM currently_full_data ORDER BY lastUpdate DESC")
-    suspend fun getPriceList(): LiveData<List<CoinInfoModel>>
+    fun getPriceList(): LiveData<List<CoinInfoModel>>
 
     @Query("SELECT * FROM currently_full_data WHERE fromSymbol ==:fSym LIMIT 1")
-    suspend fun getFullCoinInfo(fSym: String): LiveData<CoinInfoModel>
+    fun getFullCoinInfo(fSym: String): LiveData<CoinInfoModel>
 
     @Query("SELECT * FROM history_per_day ORDER BY time")
-    suspend fun getHistoryList(): LiveData<List<HistoryInfoModel>>
+    fun getHistoryList(): LiveData<List<HistoryInfoModel>>
 
     @Query("SELECT * FROM history_per_day WHERE time ==:time LIMIT 1")
-    suspend fun getHistoryDay(time: Int): LiveData<HistoryInfoModel>
+    fun getHistoryDay(time: Int): LiveData<HistoryInfoModel>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertPriceList(priceList: List<CoinInfoModel>)
+    fun insertPriceList(priceList: List<CoinInfoModel>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertHistoryList(historyList: List<HistoryInfoModel>)
+    fun insertHistoryList(historyList: List<HistoryInfoModel>)
 }

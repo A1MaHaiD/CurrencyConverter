@@ -2,8 +2,9 @@ package com.handroid.currencyconverter.data.network.dto.history
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import javax.inject.Inject
 
-data class HistoryListDto(
+data class HistoryListDto @Inject constructor(
     @SerializedName("Aggregated")
     @Expose
     val aggregated: Boolean? = null,

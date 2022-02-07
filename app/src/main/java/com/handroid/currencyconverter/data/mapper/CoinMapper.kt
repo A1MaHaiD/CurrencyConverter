@@ -9,8 +9,9 @@ import com.handroid.currencyconverter.domain.entity.CoinInfoEntity
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
-class CoinMapper {
+class CoinMapper @Inject constructor() {
 
     fun mapDtoToModel(coinInfoDto: CoinInfoDto) = CoinInfoModel(
         fromSymbol = coinInfoDto.fromSymbol,
@@ -53,7 +54,7 @@ class CoinMapper {
     }
 
     fun mapNameListToString(nameListDto: CoinNameListDto): String {
-        return nameListDto.name?.map {
+        return nameListDto.names?.map {
             it.coinName?.name
         }?.joinToString(",") ?: ""
     }
