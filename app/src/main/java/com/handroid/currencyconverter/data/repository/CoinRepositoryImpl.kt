@@ -9,6 +9,7 @@ import com.handroid.currencyconverter.domain.CoinRepository
 import com.handroid.currencyconverter.domain.entity.CoinInfoEntity
 import com.handroid.currencyconverter.domain.entity.HistoryInfoEntity
 import kotlinx.coroutines.delay
+import java.lang.Exception
 import javax.inject.Inject
 
 class CoinRepositoryImpl @Inject constructor(
@@ -41,12 +42,15 @@ class CoinRepositoryImpl @Inject constructor(
 
     override suspend fun loadCoinDate() {
         while (true){
-            val topCoins = api.apiService.getTopCoinInfo(limit = 30)
-            val fSyms = mapper.mapNameListToString(topCoins)
-            val jsonContainer = api.apiService.getFullPriceList(fSyms = fSyms)
-            val coinInfoDtoList = mapper.mapJsonToListCoinInfo(jsonContainer)
-            val dbModelList = coinInfoDtoList.map { mapper.mapDtoToModel(it) }
-            database.coinInfoDao().insertPriceList(dbModelList)
+            try {
+                val topCoins = api.apiService.getTopCoinInfo(limit = 30)
+                val fSyms = mapper.mapNameListToString(topCoins)
+                val jsonContainer = api.apiService.getFullPriceList(fSyms = fSyms)
+                val coinInfoDtoList = mapper.mapJsonToListCoinInfo(jsonContainer)
+                val dbModelList = coinInfoDtoList.map { mapper.mapDtoToModel(it) }
+                database.coinInfoDao().insertPriceList(dbModelList)
+            } catch (e: Exception) {
+            }
             delay(30_000)
         }
     }

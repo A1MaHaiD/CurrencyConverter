@@ -13,12 +13,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CurrencyConverter">
         <activity
-            android:name="com.handroid.currencyconverter.presenter.ui.activity.MainActivity"
+            android:name=".presenter.ui.activity.CoinDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presenter.ui.activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
+
 </manifest>

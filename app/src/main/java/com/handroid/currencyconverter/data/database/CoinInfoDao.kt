@@ -24,8 +24,8 @@ interface CoinInfoDao {
     fun getHistoryDay(time: Int): LiveData<HistoryInfoModel>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertPriceList(priceList: List<CoinInfoModel>)
+    suspend fun insertPriceList(priceList: List<CoinInfoModel>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertHistoryList(historyList: List<HistoryInfoModel>)
+    suspend fun insertHistoryList(historyList: List<HistoryInfoModel>)
 }
