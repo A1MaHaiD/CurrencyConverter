@@ -7,12 +7,14 @@ import com.handroid.currencyconverter.data.mapper.CoinMapper
 import com.handroid.currencyconverter.data.network.ApiFactory
 import com.handroid.currencyconverter.data.network.dto.history.HistoryInfoDto
 import com.handroid.currencyconverter.data.network.dto.namelist.CoinNameListDto
+import com.handroid.currencyconverter.di.annotation.ApplicationScope
 import com.handroid.currencyconverter.domain.CoinRepository
 import com.handroid.currencyconverter.domain.entity.CoinInfoEntity
 import com.handroid.currencyconverter.domain.entity.HistoryInfoEntity
 import kotlinx.coroutines.delay
 import javax.inject.Inject
 
+@ApplicationScope
 class CoinRepositoryImpl @Inject constructor(
     private val database: AppDatabase,
     private val api: ApiFactory,
