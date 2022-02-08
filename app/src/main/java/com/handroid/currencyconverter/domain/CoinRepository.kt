@@ -1,10 +1,22 @@
 package com.handroid.currencyconverter.domain
 
 import androidx.lifecycle.LiveData
+import com.handroid.currencyconverter.domain.entity.CoinInfoEntity
+import com.handroid.currencyconverter.domain.entity.HistoryInfoEntity
 
 interface CoinRepository {
 
-    fun getCoinList(): LiveData<List<CoinEntity>>
+    fun getCoinList(): LiveData<List<CoinInfoEntity>>
 
-    fun getCoinItem(fromSymbol: String): LiveData<CoinEntity>
+    fun getCoinItem(fromSymbol: String): LiveData<CoinInfoEntity>
+
+    suspend fun loadCoinDate()
+
+    suspend fun loadHistoryMonth()
+
+    fun getHistoryPerDay(time:Int): LiveData<HistoryInfoEntity>
+
+    fun getHistoryPerMonth(): LiveData<List<HistoryInfoEntity>>
+
+    fun getHistoryPerWeek(): LiveData<List<HistoryInfoEntity>>
 }

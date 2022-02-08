@@ -1,10 +1,9 @@
 package com.handroid.currencyconverter.domain.usecase
 
 import com.handroid.currencyconverter.domain.CoinRepository
-import javax.inject.Inject
 
-class GetCoinListUseCase @Inject constructor(
+class GetHistoryPerDayUseCase(
     private val repository: CoinRepository
 ) {
-    operator fun invoke() = repository.getCoinList()
+    operator fun invoke(time:Int) = repository.getHistoryPerDay(time)
 }
