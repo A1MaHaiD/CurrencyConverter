@@ -5,6 +5,8 @@ import androidx.lifecycle.Transformations
 import com.handroid.currencyconverter.data.database.AppDatabase
 import com.handroid.currencyconverter.data.mapper.CoinMapper
 import com.handroid.currencyconverter.data.network.ApiFactory
+import com.handroid.currencyconverter.data.network.dto.history.HistoryInfoDto
+import com.handroid.currencyconverter.data.network.dto.namelist.CoinNameListDto
 import com.handroid.currencyconverter.domain.CoinRepository
 import com.handroid.currencyconverter.domain.entity.CoinInfoEntity
 import com.handroid.currencyconverter.domain.entity.HistoryInfoEntity
@@ -32,13 +34,13 @@ class CoinRepositoryImpl @Inject constructor(
     }
 
     override fun getHistoryPerDay(time: Int): LiveData<HistoryInfoEntity> {
-        return Transformations.map(database.coinInfoDao().getHistoryPerDay(time)) {
+        return Transformations.map(database.historyInfoDao().getHistoryPerDay(time)) {
             mapper.mapHistoryModelToEntity(it)
         }
     }
 
     override fun getHistoryPerMonth(): LiveData<List<HistoryInfoEntity>> {
-        return Transformations.map(database.coinInfoDao().getHistoryPerPeriod()) {
+        return Transformations.map(database.historyInfoDao().getHistoryPerPeriod()) {
             it.map {
                 mapper.mapHistoryModelToEntity(it)
             }
@@ -46,8 +48,8 @@ class CoinRepositoryImpl @Inject constructor(
     }
 
     override fun getHistoryPerWeek(): LiveData<List<HistoryInfoEntity>> {
-        return Transformations.map(database.coinInfoDao().getHistoryPerPeriod()) {
-            it.map {
+        return Transformations.map(database.historyInfoDao().getHistoryPerPeriod()) {
+            it.subList(0, 7).map {
                 mapper.mapHistoryModelToEntity(it)
             }
         }
@@ -68,11 +70,24 @@ class CoinRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun loadHistoryWeek() {
-        TODO("Not yet implemented")
-    }
-
     override suspend fun loadHistoryMonth() {
-        TODO("Not yet implemented")
+        while (true) {
+            try {
+                val topCoins = api.apiService.getTopCoinInfo(limit = 30)
+                val fSyms = CoinNameListDto().names.toString()
+                var historyInfoDtoList: List<HistoryInfoDto>? = null
+                for (request in fSyms) {
+                    val historyByMonth = api.apiService.getCoinInfoPerDay(fSym = fSyms, limit = 30)
+                    historyInfoDtoList = mapper.mapJsonToListHistoryInfo(historyByMonth)
+                }
+                historyInfoDtoList?.let {
+                    val dbModelList =
+                        historyInfoDtoList.map { mapper.mapHistoryDtoToModel(it) }
+                    database.historyInfoDao().insertHistoryList(dbModelList)
+                }
+            } catch (e: Exception) {
+            }
+            delay(2_160_000)
+        }
     }
 }

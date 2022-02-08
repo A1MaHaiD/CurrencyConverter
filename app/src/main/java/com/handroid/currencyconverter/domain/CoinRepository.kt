@@ -12,8 +12,6 @@ interface CoinRepository {
 
     suspend fun loadCoinDate()
 
-    suspend fun loadHistoryWeek()
-
     suspend fun loadHistoryMonth()
 
     fun getHistoryPerDay(time:Int): LiveData<HistoryInfoEntity>

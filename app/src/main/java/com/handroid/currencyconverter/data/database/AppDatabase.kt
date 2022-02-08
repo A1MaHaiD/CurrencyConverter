@@ -22,11 +22,16 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     DB_NAME
                 )
+                    .fallbackToDestructiveMigration()
                     .build()
                 db = instance
                 return instance
             }
         }
     }
+
     abstract fun coinInfoDao():CoinInfoDao
+
+    abstract fun historyInfoDao():HistoryInfoDao
+
 }
