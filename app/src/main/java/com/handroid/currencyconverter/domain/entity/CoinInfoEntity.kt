@@ -1,8 +1,6 @@
 package com.handroid.currencyconverter.domain.entity
 
-import javax.inject.Inject
-
-data class CoinInfoEntity @Inject constructor(
+data class CoinInfoEntity (
     val fromSymbol: String,
     val toSymbol: String?,
     val price: String?,

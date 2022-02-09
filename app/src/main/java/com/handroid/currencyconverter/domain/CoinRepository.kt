@@ -10,9 +10,9 @@ interface CoinRepository {
 
     fun getCoinItem(fromSymbol: String): LiveData<CoinInfoEntity>
 
-    suspend fun loadCoinDate()
+    fun loadCoinDate()
 
-    suspend fun loadHistoryMonth()
+    fun loadHistoryMonth()
 
     fun getHistoryPerDay(time:Int): LiveData<HistoryInfoEntity>
 

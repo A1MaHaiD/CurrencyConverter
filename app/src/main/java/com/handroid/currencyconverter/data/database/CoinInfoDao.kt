@@ -6,7 +6,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.handroid.currencyconverter.data.database.model.CoinInfoModel
-import com.handroid.currencyconverter.data.database.model.HistoryInfoModel
 
 @Dao
 interface CoinInfoDao {

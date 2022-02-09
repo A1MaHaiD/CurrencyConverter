@@ -1,28 +1,31 @@
 package com.handroid.currencyconverter.data.repository
 
+import android.app.Application
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import com.handroid.currencyconverter.data.database.AppDatabase
+import androidx.work.ExistingWorkPolicy
+import androidx.work.WorkManager
+import com.handroid.currencyconverter.CoinApp
+import com.handroid.currencyconverter.data.database.CoinInfoDao
+import com.handroid.currencyconverter.data.database.HistoryInfoDao
 import com.handroid.currencyconverter.data.mapper.CoinMapper
-import com.handroid.currencyconverter.data.network.ApiFactory
-import com.handroid.currencyconverter.data.network.dto.history.HistoryInfoDto
-import com.handroid.currencyconverter.data.network.dto.namelist.CoinNameListDto
-import com.handroid.currencyconverter.di.annotation.ApplicationScope
+import com.handroid.currencyconverter.data.workers.RefreshCoinDataWorker
+import com.handroid.currencyconverter.data.workers.RefreshHistoryDataWorker
 import com.handroid.currencyconverter.domain.CoinRepository
 import com.handroid.currencyconverter.domain.entity.CoinInfoEntity
 import com.handroid.currencyconverter.domain.entity.HistoryInfoEntity
-import kotlinx.coroutines.delay
 import javax.inject.Inject
 
-@ApplicationScope
 class CoinRepositoryImpl @Inject constructor(
-    private val database: AppDatabase,
-    private val api: ApiFactory,
-    private val mapper: CoinMapper
+    private val mapper: CoinMapper,
+    private val coinInfoDao: CoinInfoDao,
+    private val historyInfoDao: HistoryInfoDao,
+    private val application: Application,
 ) : CoinRepository {
 
     override fun getCoinList(): LiveData<List<CoinInfoEntity>> {
-        return Transformations.map(database.coinInfoDao().getPriceList()) {
+        return Transformations.map(coinInfoDao.getPriceList()) {
             it.map {
                 mapper.mapCoinModelToEntity(it)
             }
@@ -30,19 +33,19 @@ class CoinRepositoryImpl @Inject constructor(
     }
 
     override fun getCoinItem(fromSymbol: String): LiveData<CoinInfoEntity> {
-        return Transformations.map(database.coinInfoDao().getFullCoinInfo(fromSymbol)) {
+        return Transformations.map(coinInfoDao.getFullCoinInfo(fromSymbol)) {
             mapper.mapCoinModelToEntity(it)
         }
     }
 
     override fun getHistoryPerDay(time: Int): LiveData<HistoryInfoEntity> {
-        return Transformations.map(database.historyInfoDao().getHistoryPerDay(time)) {
+        return Transformations.map(historyInfoDao.getHistoryPerDay(time)) {
             mapper.mapHistoryModelToEntity(it)
         }
     }
 
     override fun getHistoryPerMonth(): LiveData<List<HistoryInfoEntity>> {
-        return Transformations.map(database.historyInfoDao().getHistoryPerPeriod()) {
+        return Transformations.map(historyInfoDao.getHistoryPerPeriod()) {
             it.map {
                 mapper.mapHistoryModelToEntity(it)
             }
@@ -50,46 +53,28 @@ class CoinRepositoryImpl @Inject constructor(
     }
 
     override fun getHistoryPerWeek(): LiveData<List<HistoryInfoEntity>> {
-        return Transformations.map(database.historyInfoDao().getHistoryPerPeriod()) {
+        return Transformations.map(historyInfoDao.getHistoryPerPeriod()) {
             it.subList(0, 7).map {
                 mapper.mapHistoryModelToEntity(it)
             }
         }
     }
 
-    override suspend fun loadCoinDate() {
-        while (true) {
-            try {
-                val topCoins = api.apiService.getTopCoinInfo(limit = 30)
-                val fSyms = mapper.mapNameListToString(topCoins)
-                val jsonContainer = api.apiService.getFullPriceList(fSyms = fSyms)
-                val coinInfoDtoList = mapper.mapJsonToListCoinInfo(jsonContainer)
-                val dbModelList = coinInfoDtoList.map { mapper.mapCoinDtoToModel(it) }
-                database.coinInfoDao().insertPriceList(dbModelList)
-            } catch (e: Exception) {
-            }
-            delay(30_000)
-        }
+    override fun loadCoinDate() {
+        val workManagerCoin = WorkManager.getInstance(application)
+        workManagerCoin.enqueueUniqueWork(
+            RefreshCoinDataWorker.NAME,
+            ExistingWorkPolicy.REPLACE,
+            RefreshCoinDataWorker.makeRequest()
+        )
     }
 
-    override suspend fun loadHistoryMonth() {
-        while (true) {
-            try {
-                val topCoins = api.apiService.getTopCoinInfo(limit = 30)
-                val fSyms = CoinNameListDto().names.toString()
-                var historyInfoDtoList: List<HistoryInfoDto>? = null
-                for (request in fSyms) {
-                    val historyByMonth = api.apiService.getCoinInfoPerDay(fSym = fSyms, limit = 30)
-                    historyInfoDtoList = mapper.mapJsonToListHistoryInfo(historyByMonth)
-                }
-                historyInfoDtoList?.let {
-                    val dbModelList =
-                        historyInfoDtoList.map { mapper.mapHistoryDtoToModel(it) }
-                    database.historyInfoDao().insertHistoryList(dbModelList)
-                }
-            } catch (e: Exception) {
-            }
-            delay(2_160_000)
-        }
+    override fun loadHistoryMonth() {
+        val workManagerHistory = WorkManager.getInstance(application)
+        workManagerHistory.enqueueUniqueWork(
+            RefreshHistoryDataWorker.NAME,
+            ExistingWorkPolicy.REPLACE,
+            RefreshHistoryDataWorker.makeRequest()
+        )
     }
 }

@@ -5,9 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.handroid.currencyconverter.databinding.FragmentCoinDetailBinding
+import com.handroid.currencyconverter.presenter.viewmodel.CoinViewModel
+import com.handroid.currencyconverter.presenter.viewmodel.ViewModelFactory
+import javax.inject.Inject
 
 class CoinDetailFragment : Fragment() {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private val viewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[CoinViewModel::class.java]
+    }
 
     private var _binding: FragmentCoinDetailBinding? = null
     private val binding: FragmentCoinDetailBinding
