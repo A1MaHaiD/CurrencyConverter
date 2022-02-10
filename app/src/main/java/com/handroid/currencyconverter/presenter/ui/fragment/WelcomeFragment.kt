@@ -5,12 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.handroid.currencyconverter.databinding.FragmentWellcomeBinding
+import com.handroid.currencyconverter.databinding.FragmentWelcomeBinding
 
 class WelcomeFragment : Fragment() {
 
-    private var _binding: FragmentWellcomeBinding? = null
-    private val binding: FragmentWellcomeBinding
+    private var _binding: FragmentWelcomeBinding? = null
+    private val binding: FragmentWelcomeBinding
         get() = _binding ?: throw RuntimeException("WelcomeFragment == null")
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +22,7 @@ class WelcomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentWellcomeBinding.inflate(inflater, container, false)
+        _binding = FragmentWelcomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 

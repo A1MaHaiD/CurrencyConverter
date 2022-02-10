@@ -1,11 +1,13 @@
 package com.handroid.currencyconverter.data.database
 
 import androidx.lifecycle.LiveData
+import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.handroid.currencyconverter.data.database.model.HistoryInfoModel
 
+@Dao
 interface HistoryInfoDao {
 
     @Query("SELECT * FROM history_per_day ORDER BY time DESC")

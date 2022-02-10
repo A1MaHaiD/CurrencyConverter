@@ -8,13 +8,16 @@ import com.handroid.currencyconverter.data.database.model.CoinInfoModel
 import com.handroid.currencyconverter.data.database.model.HistoryInfoModel
 
 @Database(entities = [CoinInfoModel::class, HistoryInfoModel::class], version = 1, exportSchema = false)
-abstract class AppDatabase : RoomDatabase() {
+abstract class AppDatabase(
+) : RoomDatabase() {
     companion object {
         private var db: AppDatabase? = null
         private const val DB_NAME = "main.db"
         private val LOCK = Any()
 
-        fun getInstance(context: Context): AppDatabase {
+        fun getInstance(
+            context: Context
+        ): AppDatabase {
             synchronized(LOCK) {
                 db?.let { return it }
                 val instance = Room.databaseBuilder(
@@ -29,9 +32,6 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
     }
-
     abstract fun coinInfoDao():CoinInfoDao
-
     abstract fun historyInfoDao():HistoryInfoDao
-
 }

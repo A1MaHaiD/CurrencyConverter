@@ -13,5 +13,4 @@ object ApiFactory {
         .build()
 
     val apiService: ApiService = retrofit.create(ApiService::class.java)
-
 }

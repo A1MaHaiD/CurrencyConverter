@@ -99,7 +99,6 @@ class CoinMapper @Inject constructor() {
         return result
     }
 
-
     fun mapNameListToString(nameListDto: CoinNameListDto): String {
         return nameListDto.names?.map {
             it.coinName?.name

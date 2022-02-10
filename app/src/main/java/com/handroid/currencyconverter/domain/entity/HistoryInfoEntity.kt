@@ -1,8 +1,6 @@
 package com.handroid.currencyconverter.domain.entity
 
-import javax.inject.Inject
-
-data class HistoryInfoEntity @Inject constructor(
+data class HistoryInfoEntity (
     val time: String,
     val high: String?,
     val low: String?,
