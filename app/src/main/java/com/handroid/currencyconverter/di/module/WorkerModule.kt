@@ -5,8 +5,10 @@ import com.handroid.currencyconverter.data.workers.RefreshCoinDataWorker
 import com.handroid.currencyconverter.data.workers.RefreshHistoryDataWorker
 import com.handroid.currencyconverter.di.annotation.WorkerKey
 import dagger.Binds
+import dagger.Module
 import dagger.multibindings.IntoMap
 
+@Module
 interface WorkerModule {
 
     @Binds
@@ -17,5 +19,5 @@ interface WorkerModule {
     @Binds
     @IntoMap
     @WorkerKey(RefreshHistoryDataWorker::class)
-    fun bindRefreshCoinDataWorkerFactory(worker: RefreshHistoryDataWorker.Factory): ChildWorkerFactory
+    fun bindRefreshHistoryDataWorkerFactory(worker: RefreshHistoryDataWorker.Factory): ChildWorkerFactory
 }

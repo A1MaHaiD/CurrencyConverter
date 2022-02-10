@@ -8,7 +8,6 @@ import com.handroid.currencyconverter.domain.usecase.GetHistoryPerWeekUseCase
 import com.handroid.currencyconverter.domain.usecase.LoadHistoryMonthUseCase
 import javax.inject.Inject
 
-@ApplicationScope
 class HistoryViewModel @Inject constructor(
     private val getHistoryPerMonthUseCase: GetHistoryPerMonthUseCase,
     private val getHistoryPerWeekUseCase: GetHistoryPerWeekUseCase,

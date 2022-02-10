@@ -7,9 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.handroid.currencyconverter.CoinApp
+import com.handroid.currencyconverter.presenter.CoinApp
 import com.handroid.currencyconverter.databinding.FragmentCoinListBinding
-import com.handroid.currencyconverter.presenter.ui.CoinActivity
 import com.handroid.currencyconverter.presenter.viewmodel.CoinViewModel
 import com.handroid.currencyconverter.presenter.viewmodel.ViewModelFactory
 import javax.inject.Inject
@@ -23,15 +22,16 @@ class CoinListFragment : Fragment() {
         ViewModelProvider(this, viewModelFactory)[CoinViewModel::class.java]
     }
 
-/*    private val component by lazy {
+    private val component by lazy {
         (requireActivity().application as CoinApp).component
-    }*/
+    }
 
     private var _binding: FragmentCoinListBinding? = null
     private val binding: FragmentCoinListBinding
         get() = _binding ?: throw RuntimeException("CoinListFragment == null")
 
     override fun onAttach(context: Context) {
+        component.inject(this)
         super.onAttach(context)
     }
 

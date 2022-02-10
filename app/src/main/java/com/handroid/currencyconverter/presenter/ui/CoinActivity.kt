@@ -3,7 +3,7 @@ package com.handroid.currencyconverter.presenter.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.handroid.currencyconverter.CoinApp
+import com.handroid.currencyconverter.presenter.CoinApp
 import com.handroid.currencyconverter.databinding.ActivityCoinBinding
 import com.handroid.currencyconverter.presenter.viewmodel.CoinViewModel
 import com.handroid.currencyconverter.presenter.viewmodel.ViewModelFactory
@@ -22,13 +22,12 @@ class CoinActivity : AppCompatActivity() {
         ActivityCoinBinding.inflate(layoutInflater)
     }
 
-/*    private val component by lazy {
+    private val component by lazy {
         (application as CoinApp).component
-            .activityComponentFactory()
-            .create()
-    }*/
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        component.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         viewModel.coinInfoList.observe(this) {

@@ -11,7 +11,7 @@ import com.handroid.currencyconverter.data.database.model.HistoryInfoModel
 interface HistoryInfoDao {
 
     @Query("SELECT * FROM history_per_day ORDER BY time DESC")
-    fun getHistoryPerPeriod(): LiveData<List<HistoryInfoModel>>
+    fun getHistoryList(): LiveData<List<HistoryInfoModel>>
 
     @Query("SELECT * FROM history_per_day WHERE time ==:time LIMIT 1")
     fun getHistoryPerDay(time: Int): LiveData<HistoryInfoModel>
