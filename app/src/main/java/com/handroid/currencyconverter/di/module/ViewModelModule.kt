@@ -2,8 +2,8 @@ package com.handroid.currencyconverter.di.module
 
 import androidx.lifecycle.ViewModel
 import com.handroid.currencyconverter.di.annotation.ViewModelKey
-import com.handroid.currencyconverter.presenter.viewmodel.HistoryViewModel
 import com.handroid.currencyconverter.presenter.viewmodel.CoinViewModel
+import com.handroid.currencyconverter.presenter.viewmodel.HistoryViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -19,5 +19,5 @@ interface ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(HistoryViewModel::class)
-    fun bindCoinHistoryViewModel(viewModel : HistoryViewModel): ViewModel
+    fun bindHistoryViewModel(viewModel : HistoryViewModel): ViewModel
 }

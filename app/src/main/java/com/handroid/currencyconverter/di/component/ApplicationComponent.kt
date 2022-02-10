@@ -1,10 +1,11 @@
 package com.handroid.currencyconverter.di.component
 
 import android.app.Application
-import com.handroid.currencyconverter.CoinApp
 import com.handroid.currencyconverter.di.annotation.ApplicationScope
 import com.handroid.currencyconverter.di.module.DataModule
 import com.handroid.currencyconverter.di.module.ViewModelModule
+import com.handroid.currencyconverter.di.module.WorkerModule
+import com.handroid.currencyconverter.presenter.CoinApp
 import com.handroid.currencyconverter.presenter.ui.CoinActivity
 import com.handroid.currencyconverter.presenter.ui.fragment.CoinDetailFragment
 import com.handroid.currencyconverter.presenter.ui.fragment.CoinHistoryFragment
@@ -18,7 +19,7 @@ import dagger.Component
     modules = [
         DataModule::class,
         ViewModelModule::class,
-        ViewModelModule::class
+        WorkerModule::class
     ]
 )
 interface ApplicationComponent {
@@ -37,6 +38,7 @@ interface ApplicationComponent {
 
     @Component.Factory
     interface Factory {
+
         fun create(
             @BindsInstance application: Application
         ): ApplicationComponent

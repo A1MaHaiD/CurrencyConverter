@@ -1,9 +1,11 @@
-package com.handroid.currencyconverter
+package com.handroid.currencyconverter.presenter
 
 import android.app.Application
 import androidx.work.Configuration
 import com.handroid.currencyconverter.data.workers.AppWorkerFactory
-import com.handroid.currencyconverter.di.DaggerApplicationComponent
+import com.handroid.currencyconverter.di.component.DaggerApplicationComponent
+
+
 import javax.inject.Inject
 
 class CoinApp : Application(), Configuration.Provider {

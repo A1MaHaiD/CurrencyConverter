@@ -25,14 +25,14 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
         jvmTarget = '1.8'
     }
     buildFeatures {
-        dataBinding true
+        viewBinding true
     }
 }
 
@@ -42,8 +42,8 @@ dependencies {
     def coroutineVersion = "1.6.0"
     def retrofitVersion = "2.9.0"
     def roomVersion = "2.4.1"
-    def lifecycleVersion = "2.5.0-alpha01"
-    def workVersion = "2.8.0-alpha01"
+    def lifecycleVersion = "2.4.1"
+    def workVersion = "2.7.1"
     def nav_version = "2.4.0"
 
     implementation 'androidx.core:core-ktx:1.7.0'

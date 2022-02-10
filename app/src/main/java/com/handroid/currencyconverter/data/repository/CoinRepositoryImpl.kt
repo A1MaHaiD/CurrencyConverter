@@ -1,12 +1,10 @@
 package com.handroid.currencyconverter.data.repository
 
 import android.app.Application
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import androidx.work.ExistingWorkPolicy
 import androidx.work.WorkManager
-import com.handroid.currencyconverter.CoinApp
 import com.handroid.currencyconverter.data.database.CoinInfoDao
 import com.handroid.currencyconverter.data.database.HistoryInfoDao
 import com.handroid.currencyconverter.data.mapper.CoinMapper
@@ -45,7 +43,7 @@ class CoinRepositoryImpl @Inject constructor(
     }
 
     override fun getHistoryPerMonth(): LiveData<List<HistoryInfoEntity>> {
-        return Transformations.map(historyInfoDao.getHistoryPerPeriod()) {
+        return Transformations.map(historyInfoDao.getHistoryList()) {
             it.map {
                 mapper.mapHistoryModelToEntity(it)
             }
@@ -53,7 +51,7 @@ class CoinRepositoryImpl @Inject constructor(
     }
 
     override fun getHistoryPerWeek(): LiveData<List<HistoryInfoEntity>> {
-        return Transformations.map(historyInfoDao.getHistoryPerPeriod()) {
+        return Transformations.map(historyInfoDao.getHistoryList()) {
             it.subList(0, 7).map {
                 mapper.mapHistoryModelToEntity(it)
             }
