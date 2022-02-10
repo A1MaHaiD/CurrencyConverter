@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/welcomeFragment">
+
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.handroid.currencyconverter.presenter.ui.fragment.WelcomeFragment"
+        android:label="fragment_welcome"
+        tools:layout="@layout/fragment_welcome" >
+        <action
+            android:id="@+id/action_welcomeFragment_to_coinListFragment"
+            app:destination="@id/coinListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/coinListFragment"
+        android:name="com.handroid.currencyconverter.presenter.ui.fragment.CoinListFragment"
+        android:label="fragment_coin_list"
+        tools:layout="@layout/fragment_coin_list" >
+        <action
+            android:id="@+id/action_coinListFragment_to_coinDetailFragment"
+            app:destination="@id/coinDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/coinDetailFragment"
+        android:name="com.handroid.currencyconverter.presenter.ui.fragment.CoinDetailFragment"
+        android:label="fragment_coin_detail"
+        tools:layout="@layout/fragment_coin_detail" >
+        <action
+            android:id="@+id/action_coinDetailFragment_to_coinHistoryFragment"
+            app:destination="@id/coinHistoryFragment"
+            app:popUpTo="@id/coinDetailFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/coinHistoryFragment"
+        android:name="com.handroid.currencyconverter.presenter.ui.fragment.CoinHistoryFragment"
+        android:label="fragment_coin_history"
+        tools:layout="@layout/fragment_coin_history" />
+</navigation>
