@@ -1,12 +1,15 @@
 package com.handroid.currencyconverter.presenter.ui.fragment
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.handroid.currencyconverter.R
 import com.handroid.currencyconverter.presenter.CoinApp
 import com.handroid.currencyconverter.databinding.FragmentCoinDetailBinding
 import com.handroid.currencyconverter.presenter.viewmodel.CoinViewModel
@@ -53,18 +56,20 @@ class CoinDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-    }
 
-    companion object {
-        fun newInstance(agr: String) =
-            CoinDetailFragment().apply {
-                arguments = Bundle().apply {
-                }
-            }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun launchCoinHistoryFragment(){
+        findNavController().navigate(R.id.action_coinDetailFragment_to_coinHistoryFragment)
+    }
+
+    companion object {
+        private const val EXTRA_FROM_SYMBOL = "fSym"
+        private const val EMPTY_SYMBOL = ""
     }
 }

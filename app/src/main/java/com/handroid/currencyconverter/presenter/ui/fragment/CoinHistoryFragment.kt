@@ -54,14 +54,6 @@ class CoinHistoryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
-    companion object {
-        fun newInstance(arg: String) =
-            CoinHistoryFragment().apply {
-                arguments = Bundle().apply {
-                }
-            }
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
