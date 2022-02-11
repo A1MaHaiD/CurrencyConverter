@@ -3,7 +3,7 @@ package com.handroid.currencyconverter.presenter.adapters
 import androidx.recyclerview.widget.DiffUtil
 import com.handroid.currencyconverter.domain.entity.HistoryInfoEntity
 
-class DiffHistoryCallback : DiffUtil.ItemCallback<HistoryInfoEntity>() {
+object DiffHistoryCallback : DiffUtil.ItemCallback<HistoryInfoEntity>() {
     override fun areItemsTheSame(
         oldItem: HistoryInfoEntity,
         newItem: HistoryInfoEntity
