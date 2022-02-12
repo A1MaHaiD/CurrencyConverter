@@ -1,6 +1,10 @@
 package com.handroid.currencyconverter.domain.entity
 
-data class HistoryInfoEntity (
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+data class HistoryInfoEntity(
     val time: String,
     val high: String?,
     val low: String?,
@@ -10,4 +14,4 @@ data class HistoryInfoEntity (
     val close: String?,
     val conversionType: String?,
     val conversionSymbol: String?
-)
+) : Parcelable
