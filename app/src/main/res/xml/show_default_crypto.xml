@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defaultsMap>
+    <entry>
+        <key>show_default_crypto</key>
+        <value>BTC,ETH,LTC,DOGE</value>
+    </entry>
+</defaultsMap>

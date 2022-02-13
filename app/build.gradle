@@ -69,7 +69,7 @@ dependencies {
     kapt("androidx.room:room-compiler:$roomVersion")
     //@FirebaseRemoteConfig
     implementation 'com.google.firebase:firebase-config-ktx:21.0.1'
-    implementation 'com.google.firebase:firebase-analytics-ktx:20.0.2'
+    implementation 'com.google.firebase:firebase-analytics-ktx:20.1.0'
     //@ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
     //@LiveData
@@ -81,8 +81,6 @@ dependencies {
     //@NavGraph
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
-    //@FirebaseRemoteConfig
-    implementation 'com.google.firebase:firebase-config:21.0.1'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
