@@ -6,4 +6,5 @@
     <dimen name="size_icon_40">40dp</dimen>
     <dimen name="size_logo_coin_80">80dp</dimen>
     <dimen name="font_symbol">24sp</dimen>
+    <dimen name="font_normal_25">25sp</dimen>
 </resources>
