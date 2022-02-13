@@ -39,7 +39,7 @@ android {
 
 dependencies {
 
-    implementation 'com.google.firebase:firebase-config:19.1.1'
+
     def daggerVersion = "2.40.5"
     def coroutineVersion = "1.6.0"
     def retrofitVersion = "2.9.0"
@@ -81,6 +81,8 @@ dependencies {
     //@NavGraph
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+    //@FirebaseRemoteConfig
+    implementation 'com.google.firebase:firebase-config:21.0.1'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

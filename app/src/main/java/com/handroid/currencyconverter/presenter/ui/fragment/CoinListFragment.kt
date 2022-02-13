@@ -63,14 +63,14 @@ class CoinListFragment : Fragment() {
         }
     }
 
-
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
-    private fun launchCoinDetailFragment(fromSymbol: String) {
+    private fun launchCoinDetailFragment(
+        fromSymbol: String
+    ) {
         Log.d("CoinListFragment", "launchCoinDetailFragment" )
         findNavController().navigate(R.id.action_coinListFragment_to_coinDetailFragment)
     }
