@@ -115,6 +115,6 @@ class CoinMapper @Inject constructor() {
     }
 
     companion object {
-        private const val BASE_IMAGE_URL = "https://min-api.cryptocompare.com"
+        private const val BASE_IMAGE_URL = "https://cryptocompare.com"
     }
 }

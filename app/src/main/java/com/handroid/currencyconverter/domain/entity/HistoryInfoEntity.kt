@@ -1,10 +1,8 @@
 package com.handroid.currencyconverter.domain.entity
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
+import javax.inject.Inject
 
-@Parcelize
-data class HistoryInfoEntity(
+data class HistoryInfoEntity @Inject constructor(
     val time: String,
     val high: String?,
     val low: String?,
@@ -14,4 +12,4 @@ data class HistoryInfoEntity(
     val close: String?,
     val conversionType: String?,
     val conversionSymbol: String?
-) : Parcelable
+)

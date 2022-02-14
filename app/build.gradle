@@ -38,8 +38,6 @@ android {
 }
 
 dependencies {
-
-
     def daggerVersion = "2.40.5"
     def coroutineVersion = "1.6.0"
     def retrofitVersion = "2.9.0"

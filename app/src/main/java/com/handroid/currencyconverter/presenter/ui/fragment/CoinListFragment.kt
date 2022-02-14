@@ -9,9 +9,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.remoteconfig.ktx.remoteConfig
-import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 import com.handroid.currencyconverter.R
 import com.handroid.currencyconverter.databinding.FragmentCoinListBinding
 import com.handroid.currencyconverter.domain.entity.CoinInfoEntity
@@ -30,19 +27,16 @@ class CoinListFragment : Fragment() {
 
     private var _binding: FragmentCoinListBinding? = null
     private val binding: FragmentCoinListBinding
-        get() = _binding ?: throw RuntimeException("CoinListFragment == null")
+        get() = _binding ?: throw RuntimeException("$TAG == null")
 
     private val component by lazy {
         (requireActivity().application as CoinApp).component
     }
-    private val remoteConfig by lazy {
-        Firebase.remoteConfig
-    }
+
 
     override fun onAttach(context: Context) {
         component.inject(this)
         super.onAttach(context)
-        coinConfig()
     }
 
     override fun onCreateView(
@@ -55,8 +49,7 @@ class CoinListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val adapter = CoinInfoAdapter(context = this.requireContext())
+        val adapter = CoinInfoAdapter(this.requireActivity())
         adapter.onCoinClickListener = object : CoinInfoAdapter.OnCoinClickListener {
             override fun onCoinClick(coinInfoDTO: CoinInfoEntity) {
                 launchCoinDetailFragment(coinInfoDTO.fromSymbol)
@@ -64,20 +57,11 @@ class CoinListFragment : Fragment() {
         }
         binding.rvCoinPriceList.adapter = adapter
         binding.rvCoinPriceList.itemAnimator = null
-        Log.d("CoinListFragment", "onViewCreated - rvCoinPriceList")
-        viewModel = ViewModelProvider(this, viewModelFactory)[CoinViewModel::class.java]
+        Log.d(TAG, "onViewCreated - rvCoinPriceList")
+        viewModel =
+            ViewModelProvider(requireActivity(), viewModelFactory)[CoinViewModel::class.java]
         viewModel.coinInfoList.observe(viewLifecycleOwner) {
             adapter.submitList(it)
-        }
-    }
-
-    private fun coinConfig() {
-        val configSettings = remoteConfigSettings {
-            minimumFetchIntervalInSeconds = 3600
-        }
-        with(remoteConfig){
-            setConfigSettingsAsync(configSettings)
-            setDefaultsAsync(R.xml.show_default_crypto)
         }
     }
 
@@ -89,7 +73,11 @@ class CoinListFragment : Fragment() {
     private fun launchCoinDetailFragment(
         fromSymbol: String
     ) {
-        Log.d("CoinListFragment", "launchCoinDetailFragment")
+        Log.d(TAG, "launchCoinDetailFragment")
         findNavController().navigate(R.id.action_coinListFragment_to_coinDetailFragment)
+    }
+
+    companion object {
+        const val TAG = "CoinListFragment"
     }
 }

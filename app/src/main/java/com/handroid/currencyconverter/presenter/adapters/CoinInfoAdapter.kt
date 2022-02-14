@@ -8,8 +8,6 @@ import androidx.recyclerview.widget.ListAdapter
 import com.handroid.currencyconverter.R
 import com.handroid.currencyconverter.databinding.ItemCoinInfoBinding
 import com.handroid.currencyconverter.domain.entity.CoinInfoEntity
-import com.handroid.currencyconverter.presenter.CoinApp
-import com.handroid.currencyconverter.presenter.ui.fragment.CoinListFragment
 import com.squareup.picasso.Picasso
 import javax.inject.Inject
 

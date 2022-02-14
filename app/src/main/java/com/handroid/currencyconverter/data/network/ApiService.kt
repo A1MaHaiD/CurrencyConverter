@@ -10,30 +10,30 @@ interface ApiService {
 
     @GET("top/totalvolfull")
     suspend fun getTopCoinInfo(
-        @Query(QUERY_PARAM_API_KEY) api: String = "",
-        @Query(QUERY_PARAM_LIMIT) limit: Int,
+        @Query(QUERY_PARAM_API_KEY) apiKey: String = "",
+        @Query(QUERY_PARAM_LIMIT) limit: Int = 10,
         @Query(QUERY_PARAM_TO_SYMBOL) tSym: String = CURRENCY
     ): CoinNameListDto
 
     @GET("pricemultifull")
     suspend fun getFullPriceList(
-        @Query(QUERY_PARAM_API_KEY) api: String = "",
-        @Query(QUERY_PARAM_FROM_SYMBOL) fSyms: String,
+        @Query(QUERY_PARAM_API_KEY) apiKey: String = "",
+        @Query(QUERY_PARAM_FROM_SYMBOLS) fSyms: String?,
         @Query(QUERY_PARAM_TO_SYMBOLS) tSyms: String = CURRENCY
     ): CoinInfoJsonContainerDto
 
     @GET("v2/histoday")
     suspend fun getCoinInfoPerDay(
-        @Query(QUERY_PARAM_API_KEY) api: String = "",
-        @Query(QUERY_PARAM_FROM_SYMBOL) fSym: String,
+        @Query(QUERY_PARAM_API_KEY) apiKey: String = "",
+        @Query(QUERY_PARAM_FROM_SYMBOL) fSym: String?,
         @Query(QUERY_PARAM_TO_SYMBOL) tSym: String = CURRENCY,
-        @Query(QUERY_PARAM_LIMIT) limit: Int,
+        @Query(QUERY_PARAM_LIMIT) limit: Int = 31,
         @Query(QUERY_PARAM_AGGREGATE) aggregate: Int = QUERY_VAlUE_AGGREGATE,
         @Query(QUERY_PARAM_E) e: String = QUERY_VALUE_E
     ): JsonHistoryObjectDto
 
     companion object {
-        const val QUERY_PARAM_API_KEY = "api"
+        const val QUERY_PARAM_API_KEY = "api_key"
         const val QUERY_PARAM_LIMIT = "limit"
 
         const val QUERY_PARAM_TO_SYMBOL = "tsym"

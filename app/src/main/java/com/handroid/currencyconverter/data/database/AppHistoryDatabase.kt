@@ -7,22 +7,21 @@ import androidx.room.RoomDatabase
 import com.handroid.currencyconverter.data.database.model.CoinInfoModel
 import com.handroid.currencyconverter.data.database.model.HistoryInfoModel
 
-@Database(entities = [CoinInfoModel::class, HistoryInfoModel::class], version = 1, exportSchema = false)
-abstract class AppDatabase(
+@Database(entities = [HistoryInfoModel::class], version = 1, exportSchema = false)
+abstract class AppHistoryDatabase(
 ) : RoomDatabase() {
     companion object {
-        private var db: AppDatabase? = null
-        private const val DB_NAME = "main.db"
+        private var db: AppHistoryDatabase? = null
+        private const val DB_NAME = "history.db"
         private val LOCK = Any()
-
         fun getInstance(
             context: Context
-        ): AppDatabase {
+        ): AppHistoryDatabase {
             synchronized(LOCK) {
                 db?.let { return it }
                 val instance = Room.databaseBuilder(
                     context,
-                    AppDatabase::class.java,
+                    AppHistoryDatabase::class.java,
                     DB_NAME
                 )
                     .fallbackToDestructiveMigration()
@@ -32,6 +31,5 @@ abstract class AppDatabase(
             }
         }
     }
-    abstract fun coinInfoDao():CoinInfoDao
-    abstract fun historyInfoDao():HistoryInfoDao
+    abstract fun historyInfoDao(): HistoryInfoDao
 }
