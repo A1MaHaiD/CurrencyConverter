@@ -52,6 +52,7 @@ class CoinHistoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //TODO()
     }
 
     override fun onDestroyView() {
