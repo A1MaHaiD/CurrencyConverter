@@ -26,7 +26,7 @@ class RefreshCoinDataWorker (
                 coinInfoDao.insertPriceList(dbModelList)
             } catch (e: Exception) {
             }
-            delay(10_000)
+            delay(30_000)
         }
     }
 
@@ -35,7 +35,7 @@ class RefreshCoinDataWorker (
 
         fun makeRequest(): OneTimeWorkRequest {
             return OneTimeWorkRequestBuilder<RefreshCoinDataWorker>()
-//                .setConstraints(makeConstraints())
+                .setConstraints(makeConstraints())
                 .build()
         }
 

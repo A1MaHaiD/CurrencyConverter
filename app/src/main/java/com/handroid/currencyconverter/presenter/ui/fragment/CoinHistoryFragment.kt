@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.handroid.currencyconverter.presenter.CoinApp
 import com.handroid.currencyconverter.databinding.FragmentCoinHistoryBinding
+import com.handroid.currencyconverter.presenter.CoinApp
 import com.handroid.currencyconverter.presenter.viewmodel.HistoryViewModel
 import com.handroid.currencyconverter.presenter.viewmodel.ViewModelFactory
 import javax.inject.Inject
