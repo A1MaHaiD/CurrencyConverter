@@ -16,10 +16,13 @@ class HistoryViewModel @Inject constructor(
 
     val historyMonth = getHistoryPerMonthUseCase()
 
+    val historyWeek = getHistoryPerWeekUseCase()
+
     fun getHistoryInfoMonth(time: Int) = getHistoryPerDayUseCase(time)
+
+    fun getHistoryInfoWeek(time: Int) = getHistoryPerDayUseCase(time)
 
     init {
         loadHistoryMonthUseCase()
-
     }
 }

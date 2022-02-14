@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -37,14 +38,13 @@ android {
 }
 
 dependencies {
-
     def daggerVersion = "2.40.5"
     def coroutineVersion = "1.6.0"
     def retrofitVersion = "2.9.0"
     def roomVersion = "2.4.1"
     def lifecycleVersion = "2.4.1"
     def workVersion = "2.7.1"
-    def nav_version = "2.4.0"
+    def nav_version = "2.4.1"
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
@@ -60,14 +60,14 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion")
     //@Retrofit
     implementation ("com.squareup.retrofit2:retrofit:$retrofitVersion")
-    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+    implementation ("com.squareup.retrofit2:converter-gson:$retrofitVersion")
     //@Room
     implementation("androidx.room:room-runtime:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
     kapt("androidx.room:room-compiler:$roomVersion")
     //@FirebaseRemoteConfig
     implementation 'com.google.firebase:firebase-config-ktx:21.0.1'
-    implementation 'com.google.firebase:firebase-analytics-ktx:20.0.2'
+    implementation 'com.google.firebase:firebase-analytics-ktx:20.1.0'
     //@ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
     //@LiveData

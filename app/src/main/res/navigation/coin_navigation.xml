@@ -33,17 +33,10 @@
             app:destination="@id/coinHistoryFragment"
             app:popUpTo="@id/coinDetailFragment"
             app:popUpToInclusive="true" />
-        <argument
-            android:name="fromSymbol"
-            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/coinHistoryFragment"
         android:name="com.handroid.currencyconverter.presenter.ui.fragment.CoinHistoryFragment"
         android:label="fragment_coin_history"
-        tools:layout="@layout/fragment_coin_history" >
-        <argument
-            android:name="fromSymbol"
-            app:argType="string" />
-    </fragment>
+        tools:layout="@layout/fragment_coin_history" />
 </navigation>

@@ -1,7 +1,8 @@
 package com.handroid.currencyconverter.di.module
 
 import android.app.Application
-import com.handroid.currencyconverter.data.database.AppDatabase
+import com.handroid.currencyconverter.data.database.AppCoinDatabase
+import com.handroid.currencyconverter.data.database.AppHistoryDatabase
 import com.handroid.currencyconverter.data.database.CoinInfoDao
 import com.handroid.currencyconverter.data.database.HistoryInfoDao
 import com.handroid.currencyconverter.data.network.ApiFactory
@@ -24,13 +25,13 @@ interface DataModule {
         @Provides
         @ApplicationScope
         fun provideCoinInfoDao(application: Application): CoinInfoDao {
-            return AppDatabase.getInstance(application).coinInfoDao()
+            return AppCoinDatabase.getInstance(application).coinInfoDao()
         }
 
         @Provides
         @ApplicationScope
         fun provideHistoryInfoDao(application: Application): HistoryInfoDao {
-            return AppDatabase.getInstance(application).historyInfoDao()
+            return AppHistoryDatabase.getInstance(application).historyInfoDao()
         }
 
         @Provides

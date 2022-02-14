@@ -1,6 +1,7 @@
 package com.handroid.currencyconverter.presenter.adapters
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -17,6 +18,7 @@ class CoinInfoAdapter @Inject constructor(
     var onCoinClickListener: OnCoinClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinInfoVH {
+        Log.d("CoinInfoAdapter", "onCreateViewHolder")
         val binding =
             ItemCoinInfoBinding.inflate(
                 LayoutInflater.from(parent.context),

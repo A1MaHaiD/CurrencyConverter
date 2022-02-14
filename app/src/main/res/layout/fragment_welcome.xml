@@ -1,22 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".presenter.ui.fragment.WelcomeFragment">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="Welcome" />
+        android:id="@+id/tv_tittle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/font_normal_25"
+        android:textStyle="bold"
+        android:layout_margin="@dimen/spacing_normal_16"
+        android:paddingBottom="@dimen/spacing_small_8"
+        android:text="@string/about_application"
+        app:layout_constraintBottom_toTopOf="@+id/tv_introductory"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_introductory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="italic"
+        android:textSize="@dimen/font_normal_16"
+        android:paddingHorizontal="@dimen/spacing_normal_16"
+        android:paddingTop="@dimen/spacing_small_8"
+        android:text="@string/introductory_information"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_tittle" />
+
 
     <Button
         android:id="@+id/btn_understood"
         android:layout_width="match_parent"
-        android:layout_gravity="bottom"
-        android:layout_margin="16dp"
         android:layout_height="wrap_content"
-        android:text="Understood"/>
+        android:layout_margin="16dp"
+        android:text="@string/understood"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
