@@ -7,6 +7,7 @@ import androidx.work.ExistingWorkPolicy
 import androidx.work.WorkManager
 import com.handroid.currencyconverter.data.database.CoinInfoDao
 import com.handroid.currencyconverter.data.database.HistoryInfoDao
+import com.handroid.currencyconverter.data.database.model.HistoryInfoModel
 import com.handroid.currencyconverter.data.mapper.CoinMapper
 import com.handroid.currencyconverter.data.workers.RefreshCoinDataWorker
 import com.handroid.currencyconverter.data.workers.RefreshHistoryDataWorker
@@ -36,25 +37,28 @@ class CoinRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getHistoryPerDay(time: Int): LiveData<HistoryInfoEntity> {
-        return Transformations.map(historyInfoDao.getHistoryPerDay(time)) {
-            mapper.mapHistoryModelToEntity(it)
-        }
-    }
-
-    override fun getHistoryPerMonth(): LiveData<List<HistoryInfoEntity>> {
-        return Transformations.map(historyInfoDao.getHistoryList()) {
+    override fun getHistoryPerMonth(fromSymbols: String): LiveData<List<HistoryInfoEntity>> {
+        return Transformations.map(historyInfoDao.getHistoryPerMonth(fromSymbols)) {
             it.map {
                 mapper.mapHistoryModelToEntity(it)
             }
         }
     }
 
-    override fun getHistoryPerWeek(): LiveData<List<HistoryInfoEntity>> {
-        return Transformations.map(historyInfoDao.getHistoryList()) {
+    override fun getHistoryPerWeek(fromSymbols: String): LiveData<List<HistoryInfoEntity>> {
+        return Transformations.map(historyInfoDao.getHistoryPerMonth(fromSymbols)) {
             it.subList(0, 7).map {
                 mapper.mapHistoryModelToEntity(it)
             }
+        }
+    }
+
+    override fun getHistoryPerDay(
+        fromSymbols: String,
+        historyInfoModel: HistoryInfoModel
+    ): LiveData<HistoryInfoEntity> {
+        return Transformations.map(historyInfoDao.getHistoryPerDay(fromSymbols, historyInfoModel)) {
+            mapper.mapHistoryModelToEntity(it)
         }
     }
 
