@@ -16,7 +16,7 @@ interface CoinRepository {
 
     fun getHistoryPerDay(time:Int): LiveData<HistoryInfoEntity>
 
-    fun getHistoryPerMonth(): LiveData<List<HistoryInfoEntity>>
-
     fun getHistoryPerWeek(): LiveData<List<HistoryInfoEntity>>
+
+    fun getHistoryPerMonth(): LiveData<List<HistoryInfoEntity>>
 }

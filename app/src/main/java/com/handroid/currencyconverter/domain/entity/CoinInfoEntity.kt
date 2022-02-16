@@ -1,7 +1,10 @@
 package com.handroid.currencyconverter.domain.entity
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import javax.inject.Inject
 
+@Parcelize
 data class CoinInfoEntity @Inject constructor(
     val fromSymbol: String,
     val toSymbol: String?,
@@ -11,4 +14,4 @@ data class CoinInfoEntity @Inject constructor(
     val lowDay: String?,
     val lastMarket: String?,
     val imageUrl: String
-)
+) : Parcelable

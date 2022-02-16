@@ -9,21 +9,23 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.handroid.currencyconverter.R
 import com.handroid.currencyconverter.presenter.CoinApp
 import com.handroid.currencyconverter.databinding.FragmentCoinDetailBinding
 import com.handroid.currencyconverter.presenter.viewmodel.CoinViewModel
 import com.handroid.currencyconverter.presenter.viewmodel.ViewModelFactory
+import com.squareup.picasso.Picasso
 import javax.inject.Inject
 
 class CoinDetailFragment : Fragment() {
 
+    private val args by navArgs<CoinDetailFragmentArgs>()
+
+    private lateinit var viewModel: CoinViewModel
+
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-
-    private val viewModel by lazy {
-        ViewModelProvider(this, viewModelFactory)[CoinViewModel::class.java]
-    }
 
     private val component by lazy {
         (requireActivity().application as CoinApp).component
@@ -56,7 +58,22 @@ class CoinDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        viewModel = ViewModelProvider(this, viewModelFactory)[CoinViewModel::class.java]
+        viewModel.getDetailInfo(getSymbol()).observe(viewLifecycleOwner) {
+            with(binding) {
+                tvPrice.text = it.price.toString()
+                tvMinPrice.text = it.lowDay.toString()
+                tvMaxPrice.text = it.highDay.toString()
+                tvLastMarket.text = it.lastMarket.toString()
+                tvLastUpdate.text = it.lastUpdate
+                tvFromSymbol.text = it.fromSymbol
+                tvToSymbol.text = it.toSymbol
+                Picasso.get().load(it.imageUrl).into(ivLogoCoin)
+            }
+        }
+        binding.ivLogoCoin.setOnClickListener {
+            launchCoinHistoryFragment()
+        }
     }
 
     override fun onDestroyView() {
@@ -64,12 +81,12 @@ class CoinDetailFragment : Fragment() {
         _binding = null
     }
 
-    private fun launchCoinHistoryFragment(){
-        findNavController().navigate(R.id.action_coinDetailFragment_to_coinHistoryFragment)
+    private fun getSymbol(): String {
+        return args.fromSymbol
     }
 
-    companion object {
-        private const val EXTRA_FROM_SYMBOL = "fSym"
-        private const val EMPTY_SYMBOL = ""
+    private fun launchCoinHistoryFragment() {
+        findNavController().navigate(
+            CoinDetailFragmentDirections.actionCoinDetailFragmentToCoinHistoryFragment(getSymbol()))
     }
 }

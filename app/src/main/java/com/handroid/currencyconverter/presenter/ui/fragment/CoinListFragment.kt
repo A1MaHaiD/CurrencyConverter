@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.handroid.currencyconverter.R
 import com.handroid.currencyconverter.databinding.FragmentCoinListBinding
 import com.handroid.currencyconverter.domain.entity.CoinInfoEntity
 import com.handroid.currencyconverter.presenter.CoinApp
@@ -74,7 +73,11 @@ class CoinListFragment : Fragment() {
         fromSymbol: String
     ) {
         Log.d(TAG, "launchCoinDetailFragment")
-        findNavController().navigate(R.id.action_coinListFragment_to_coinDetailFragment)
+        findNavController().navigate(
+            CoinListFragmentDirections.actionCoinListFragmentToCoinDetailFragment(
+                fromSymbol
+            )
+        )
     }
 
     companion object {

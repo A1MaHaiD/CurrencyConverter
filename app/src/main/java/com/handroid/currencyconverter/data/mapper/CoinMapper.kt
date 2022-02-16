@@ -6,6 +6,7 @@ import com.handroid.currencyconverter.data.database.model.HistoryInfoModel
 import com.handroid.currencyconverter.data.network.dto.detailinfo.CoinInfoDto
 import com.handroid.currencyconverter.data.network.dto.detailinfo.CoinInfoJsonContainerDto
 import com.handroid.currencyconverter.data.network.dto.history.HistoryInfoDto
+import com.handroid.currencyconverter.data.network.dto.history.HistoryInfoListDto
 import com.handroid.currencyconverter.data.network.dto.history.JsonHistoryObjectDto
 import com.handroid.currencyconverter.data.network.dto.namelist.CoinNameListDto
 import com.handroid.currencyconverter.domain.entity.CoinInfoEntity
@@ -39,28 +40,20 @@ class CoinMapper @Inject constructor() {
         imageUrl = coinInfoModel.imageUrl
     )
 
-    fun mapHistoryModelToEntity(historyInfoModel: HistoryInfoModel) = HistoryInfoEntity(
-        time = convertTimestampToTime(historyInfoModel.time?.toLong()),
-        high = historyInfoModel.high.toString(),
-        low = historyInfoModel.low.toString(),
-        open = historyInfoModel.open.toString(),
-        volumeFrom = historyInfoModel.volumeFrom.toString(),
-        volumeTo = historyInfoModel.volumeTo.toString(),
-        close = historyInfoModel.close.toString(),
-        conversionType = historyInfoModel.conversionType,
-        conversionSymbol = historyInfoModel.conversionSymbol
-    )
-
     fun mapHistoryDtoToModel(historyInfoDto: HistoryInfoDto) = HistoryInfoModel(
         time = historyInfoDto.time,
         high = historyInfoDto.high,
         low = historyInfoDto.low,
         open = historyInfoDto.open,
-        volumeFrom = historyInfoDto.volumeFrom,
-        volumeTo = historyInfoDto.volumeTo,
         close = historyInfoDto.close,
-        conversionType = historyInfoDto.conversionType,
-        conversionSymbol = historyInfoDto.conversionSymbol
+    )
+
+    fun mapHistoryModelToEntity(historyInfoModel: HistoryInfoModel) = HistoryInfoEntity(
+        time = convertTimestampToTime(historyInfoModel.time.toLong()),
+        high = historyInfoModel.high.toString(),
+        low = historyInfoModel.low.toString(),
+        open = historyInfoModel.open.toString(),
+        close = historyInfoModel.close.toString(),
     )
 
     fun mapJsonToListCoinInfo(jsonDto: CoinInfoJsonContainerDto): List<CoinInfoDto> {
@@ -81,21 +74,22 @@ class CoinMapper @Inject constructor() {
         return result
     }
 
-    fun mapJsonToListHistoryInfo(historyObject: JsonHistoryObjectDto):List<HistoryInfoDto>{
+    fun mapJsonToListHistoryInfo(historyObject: JsonHistoryObjectDto): List<HistoryInfoDto> {
         val result = mutableListOf<HistoryInfoDto>()
         val jsonObject = historyObject.jsonHistoryDay ?: return result
         val historyKeySet = jsonObject.keySet()
-        for (historyKey in historyKeySet){
-            val currencyJson = jsonObject.getAsJsonObject(historyKey)
-            val currencyKeySet = currencyJson.keySet()
-            for (currencyKey in currencyKeySet){
-                val  historyInfo = Gson().fromJson(
-                    currencyJson.getAsJsonObject(currencyKey),
-                    HistoryInfoDto::class.java
-                )
-                result.add(historyInfo)
+            for (currencyKey in historyKeySet) {
+                val currencyJsonDay = jsonObject.getAsJsonObject(currencyKey)
+                val currencyKeySetDay = currencyJsonDay.keySet()
+                for (dayKey in currencyKeySetDay) {
+                    val historyInfo = Gson().fromJson(
+                        currencyJsonDay.getAsJsonObject(dayKey),
+                        HistoryInfoDto::class.java
+                    )
+                    result.add(historyInfo)
+                }
             }
-        }
+
         return result
     }
 

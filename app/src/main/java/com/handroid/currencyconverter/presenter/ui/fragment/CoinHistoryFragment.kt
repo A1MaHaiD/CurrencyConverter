@@ -2,25 +2,29 @@ package com.handroid.currencyconverter.presenter.ui.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.handroid.currencyconverter.presenter.CoinApp
+import androidx.navigation.fragment.navArgs
 import com.handroid.currencyconverter.databinding.FragmentCoinHistoryBinding
+import com.handroid.currencyconverter.presenter.CoinApp
+import com.handroid.currencyconverter.presenter.viewmodel.CoinViewModel
 import com.handroid.currencyconverter.presenter.viewmodel.HistoryViewModel
 import com.handroid.currencyconverter.presenter.viewmodel.ViewModelFactory
+import com.squareup.picasso.Picasso
 import javax.inject.Inject
 
 class CoinHistoryFragment : Fragment() {
 
+    private val args by navArgs<CoinHistoryFragmentArgs>()
+
+    private lateinit var viewModel: HistoryViewModel
+
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-
-    private val viewModel by lazy {
-        ViewModelProvider(this, viewModelFactory)[HistoryViewModel::class.java]
-    }
 
     private val component by lazy {
         (requireActivity().application as CoinApp).component
@@ -52,10 +56,24 @@ class CoinHistoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this, viewModelFactory)[HistoryViewModel::class.java]
+//        viewModel.getHistoryInfoPerDay(TIME).observe(viewLifecycleOwner) {
+//            Log.d(TAG,"onViewCreated:HistoryViewModel: $it")
+//        }
+        Log.d(TAG, "${viewModel.getHistoryInfoMonth.value}")
+    }
+
+    private fun getSymbol(): String {
+        return args.fromSymbol
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        const val TAG = "CoinHistoryFragment"
+        const val TIME = 1642377600
     }
 }

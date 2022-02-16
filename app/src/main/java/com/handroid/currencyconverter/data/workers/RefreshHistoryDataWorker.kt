@@ -3,14 +3,14 @@ package com.handroid.currencyconverter.data.workers
 import android.content.Context
 import androidx.work.*
 import com.handroid.currencyconverter.data.database.HistoryInfoDao
+import com.handroid.currencyconverter.data.database.model.HistoryInfoModel
 import com.handroid.currencyconverter.data.mapper.CoinMapper
 import com.handroid.currencyconverter.data.network.ApiService
-import com.handroid.currencyconverter.data.network.dto.history.HistoryInfoDto
 import com.handroid.currencyconverter.data.network.dto.namelist.CoinNameListDto
 import kotlinx.coroutines.delay
 import javax.inject.Inject
 
-class RefreshHistoryDataWorker (
+class RefreshHistoryDataWorker(
     context: Context,
     workerParameters: WorkerParameters,
     private val historyInfoDao: HistoryInfoDao,
@@ -20,20 +20,21 @@ class RefreshHistoryDataWorker (
     override suspend fun doWork(): Result {
         while (true) {
             try {
-                val fSyms = CoinNameListDto().names.toString()
-                var historyInfoDtoList: List<HistoryInfoDto>? = null
-                for (request in fSyms) {
-                    val historyByMonth = api.getCoinInfoPerDay(fSym = fSyms, limit = 30)
-                    historyInfoDtoList = mapper.mapJsonToListHistoryInfo(historyByMonth)
+//                val fSyms = CoinNameListDto().names.toString()
+                val fSyms = "TRX"
+                val dbHistoryList = mutableListOf<HistoryInfoModel>()
+                val historyByMonth = api.getCoinInfoPerDay(fSym = fSyms, limit = 30)
+                val historyInfoDtoList = mapper.mapJsonToListHistoryInfo(historyByMonth)
+                val dbHistory = historyInfoDtoList.map {
+//                    dbHistoryList.add(
+                    mapper.mapHistoryDtoToModel(it)
+//                    )
                 }
-                historyInfoDtoList?.let {
-                    val dbModelList =
-                        historyInfoDtoList.map { mapper.mapHistoryDtoToModel(it) }
-                    historyInfoDao.insertHistoryList(dbModelList)
-                }
+                historyInfoDao.insertHistoryList(dbHistory)
             } catch (e: Exception) {
             }
-            delay(2_160_000)
+            delay(30_000)
+//            delay(2_160_000)
         }
     }
 

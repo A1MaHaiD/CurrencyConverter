@@ -36,12 +36,6 @@ class CoinRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getHistoryPerDay(time: Int): LiveData<HistoryInfoEntity> {
-        return Transformations.map(historyInfoDao.getHistoryPerDay(time)) {
-            mapper.mapHistoryModelToEntity(it)
-        }
-    }
-
     override fun getHistoryPerMonth(): LiveData<List<HistoryInfoEntity>> {
         return Transformations.map(historyInfoDao.getHistoryList()) {
             it.map {
@@ -55,6 +49,14 @@ class CoinRepositoryImpl @Inject constructor(
             it.subList(0, 7).map {
                 mapper.mapHistoryModelToEntity(it)
             }
+        }
+    }
+
+    override fun getHistoryPerDay(
+        time:Int
+    ): LiveData<HistoryInfoEntity> {
+        return Transformations.map(historyInfoDao.getHistoryPerDay(time)) {
+            mapper.mapHistoryModelToEntity(it)
         }
     }
 

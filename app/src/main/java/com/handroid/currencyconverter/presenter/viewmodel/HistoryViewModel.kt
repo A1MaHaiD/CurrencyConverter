@@ -14,13 +14,11 @@ class HistoryViewModel @Inject constructor(
     private val loadHistoryMonthUseCase: LoadHistoryMonthUseCase
 ) : ViewModel() {
 
-    val historyMonth = getHistoryPerMonthUseCase()
+    val getHistoryInfoMonth = getHistoryPerMonthUseCase()
 
-    val historyWeek = getHistoryPerWeekUseCase()
+    val getHistoryInfoWeek = getHistoryPerWeekUseCase()
 
-    fun getHistoryInfoMonth(time: Int) = getHistoryPerDayUseCase(time)
-
-    fun getHistoryInfoWeek(time: Int) = getHistoryPerDayUseCase(time)
+    fun getHistoryInfoPerDay(time: Int) = getHistoryPerDayUseCase(time)
 
     init {
         loadHistoryMonthUseCase()
