@@ -1,7 +1,6 @@
 package com.handroid.currencyconverter.presenter.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.handroid.currencyconverter.data.database.model.HistoryInfoModel
 import com.handroid.currencyconverter.domain.usecase.GetHistoryPerDayUseCase
 import com.handroid.currencyconverter.domain.usecase.GetHistoryPerMonthUseCase
 import com.handroid.currencyconverter.domain.usecase.GetHistoryPerWeekUseCase
@@ -15,14 +14,11 @@ class HistoryViewModel @Inject constructor(
     private val loadHistoryMonthUseCase: LoadHistoryMonthUseCase
 ) : ViewModel() {
 
-    fun getHistoryInfoPerDay(
-        fromSymbols: String,
-        historyInfoModel: HistoryInfoModel
-    ) = getHistoryPerDayUseCase(fromSymbols, historyInfoModel)
+    val getHistoryInfoMonth = getHistoryPerMonthUseCase()
 
-    fun getHistoryInfoMonth(fromSymbols: String) = getHistoryPerMonthUseCase(fromSymbols)
+    val getHistoryInfoWeek = getHistoryPerWeekUseCase()
 
-    fun getHistoryInfoWeek(fromSymbols: String) = getHistoryPerWeekUseCase(fromSymbols)
+    fun getHistoryInfoPerDay(time: Int) = getHistoryPerDayUseCase(time)
 
     init {
         loadHistoryMonthUseCase()

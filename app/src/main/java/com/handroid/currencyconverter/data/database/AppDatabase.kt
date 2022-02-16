@@ -5,11 +5,11 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.handroid.currencyconverter.data.database.model.CoinInfoModel
-import com.handroid.currencyconverter.data.database.model.HistoryMapContainerModel
+import com.handroid.currencyconverter.data.database.model.HistoryInfoModel
 
 @Database(
-    entities = [CoinInfoModel::class, HistoryMapContainerModel::class],
-    version = 2,
+    entities = [CoinInfoModel::class, HistoryInfoModel::class],
+    version = 4,
     exportSchema = false
 )
 abstract class AppDatabase(
@@ -35,7 +35,6 @@ abstract class AppDatabase(
             }
         }
     }
-
     abstract fun coinInfoDao(): CoinInfoDao
     abstract fun historyInfoDao(): HistoryInfoDao
 }

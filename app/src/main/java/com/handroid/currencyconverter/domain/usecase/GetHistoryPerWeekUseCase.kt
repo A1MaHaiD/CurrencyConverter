@@ -6,5 +6,5 @@ import javax.inject.Inject
 class GetHistoryPerWeekUseCase @Inject constructor(
     private val repository: CoinRepository
 ) {
-    operator fun invoke(fromSymbols: String) = repository.getHistoryPerWeek(fromSymbols)
+    operator fun invoke() = repository.getHistoryPerWeek()
 }

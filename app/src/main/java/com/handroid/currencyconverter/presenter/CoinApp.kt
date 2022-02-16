@@ -1,5 +1,6 @@
 package com.handroid.currencyconverter.presenter
 
+
 import android.app.Application
 import android.util.Log
 import android.widget.Toast
@@ -10,9 +11,6 @@ import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 import com.handroid.currencyconverter.R
 import com.handroid.currencyconverter.data.workers.AppWorkerFactory
 import com.handroid.currencyconverter.di.component.DaggerApplicationComponent
-import com.handroid.currencyconverter.presenter.ui.fragment.CoinListFragment
-
-
 import javax.inject.Inject
 
 class CoinApp : Application(), Configuration.Provider {

@@ -1,13 +1,11 @@
 package com.handroid.currencyconverter.data.workers
 
 import android.content.Context
-import androidx.lifecycle.Transformations
 import androidx.work.*
 import com.handroid.currencyconverter.data.database.HistoryInfoDao
-import com.handroid.currencyconverter.data.database.model.HistoryMapContainerModel
+import com.handroid.currencyconverter.data.database.model.HistoryInfoModel
 import com.handroid.currencyconverter.data.mapper.CoinMapper
 import com.handroid.currencyconverter.data.network.ApiService
-import com.handroid.currencyconverter.data.network.dto.history.HistoryInfoListDto
 import com.handroid.currencyconverter.data.network.dto.namelist.CoinNameListDto
 import kotlinx.coroutines.delay
 import javax.inject.Inject
@@ -22,23 +20,17 @@ class RefreshHistoryDataWorker(
     override suspend fun doWork(): Result {
         while (true) {
             try {
-                val fSyms = CoinNameListDto().names.toString()
-                val dbHistoryList = mutableListOf<HistoryMapContainerModel>()
-                for (request in fSyms) {
-                    val historyByMonth = api.getCoinInfoPerDay(fSym = fSyms, limit = 30)
-                    val historyInfoDtoList = mapper.mapJsonToListHistoryInfo(historyByMonth)
-                    historyInfoDtoList.map {
-                        dbHistoryList.add(
-                            HistoryMapContainerModel(
-                                fromSymbols = fSyms,
-                                historyInfoModel =  it.history.historyList.map {
-                                    mapper.mapHistoryDtoToModel(it)
-                                }
-                            )
-                        )
-                    }
+//                val fSyms = CoinNameListDto().names.toString()
+                val fSyms = "TRX"
+                val dbHistoryList = mutableListOf<HistoryInfoModel>()
+                val historyByMonth = api.getCoinInfoPerDay(fSym = fSyms, limit = 30)
+                val historyInfoDtoList = mapper.mapJsonToListHistoryInfo(historyByMonth)
+                val dbHistory = historyInfoDtoList.map {
+//                    dbHistoryList.add(
+                    mapper.mapHistoryDtoToModel(it)
+//                    )
                 }
-                historyInfoDao.insertHistoryList(dbHistoryList.toList())
+                historyInfoDao.insertHistoryList(dbHistory)
             } catch (e: Exception) {
             }
             delay(30_000)

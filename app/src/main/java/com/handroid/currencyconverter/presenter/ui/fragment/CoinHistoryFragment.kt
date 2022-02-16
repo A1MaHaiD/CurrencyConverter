@@ -22,6 +22,7 @@ class CoinHistoryFragment : Fragment() {
     private val args by navArgs<CoinHistoryFragmentArgs>()
 
     private lateinit var viewModel: HistoryViewModel
+
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
@@ -56,9 +57,10 @@ class CoinHistoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this, viewModelFactory)[HistoryViewModel::class.java]
-        viewModel.getHistoryInfoMonth(getSymbol()).observe(viewLifecycleOwner) {
-            Log.d(TAG,"onViewCreated:HistoryViewModel: $it")
-        }
+//        viewModel.getHistoryInfoPerDay(TIME).observe(viewLifecycleOwner) {
+//            Log.d(TAG,"onViewCreated:HistoryViewModel: $it")
+//        }
+        Log.d(TAG, "${viewModel.getHistoryInfoMonth.value}")
     }
 
     private fun getSymbol(): String {
@@ -70,7 +72,8 @@ class CoinHistoryFragment : Fragment() {
         _binding = null
     }
 
-    companion object{
+    companion object {
         const val TAG = "CoinHistoryFragment"
+        const val TIME = 1642377600
     }
 }

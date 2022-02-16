@@ -25,7 +25,7 @@ interface ApiService {
     @GET("v2/histoday")
     suspend fun getCoinInfoPerDay(
         @Query(QUERY_PARAM_API_KEY) apiKey: String = "",
-        @Query(QUERY_PARAM_FROM_SYMBOL) fSym: String?,
+        @Query(QUERY_PARAM_FROM_SYMBOL) fSym: String,
         @Query(QUERY_PARAM_TO_SYMBOL) tSym: String = CURRENCY,
         @Query(QUERY_PARAM_LIMIT) limit: Int,
         @Query(QUERY_PARAM_AGGREGATE) aggregate: Int = QUERY_VAlUE_AGGREGATE,
