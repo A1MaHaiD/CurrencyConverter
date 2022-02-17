@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Конвертер валют</string>
+    <string name="symbols_template">%s / %s</string>
+    <string name="last_update_template">Время последнего обновления: %s</string>
+    <string name="slash">/</string>
+    <string name="price_label">Цена:</string>
+    <string name="min_price">Минимум за день:</string>
+    <string name="max_price">Максимум за день:</string>
+    <string name="last_trade">Последняя торговля:</string>
+    <string name="last_update">Обновлено</string>
+    <string name="understood">Понял</string>
+    <string name="about_application">О приложении</string>
+    <string name="introductory_information">Данная программа создана исключительно в образовательных целях, для закрепления навыков, и использования определенных библиотек, в рамках тестового задания. В этом приложении есть список криптовалют, нажатие на одну из них открывает детальную информацию, далее будет кнопка с данными за неделю и месяц. В ближайшее время эти и другие функции будут добавлены в приложение.</string>
+    <string name="date">Дата:</string>
+    <string name="open">Курс в начале дня:</string>
+    <string name="close">Курс в конце дня:</string>
+</resources>

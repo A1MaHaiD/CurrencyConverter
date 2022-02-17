@@ -1,6 +1,7 @@
 package com.handroid.currencyconverter.data.network
 
 import com.handroid.currencyconverter.data.network.dto.detailinfo.CoinInfoJsonContainerDto
+import com.handroid.currencyconverter.data.network.dto.history.HistoryInfoListContainerDto
 import com.handroid.currencyconverter.data.network.dto.history.JsonHistoryObjectDto
 import com.handroid.currencyconverter.data.network.dto.namelist.CoinNameListDto
 import retrofit2.http.GET
@@ -30,6 +31,7 @@ interface ApiService {
         @Query(QUERY_PARAM_LIMIT) limit: Int,
         @Query(QUERY_PARAM_AGGREGATE) aggregate: Int = QUERY_VAlUE_AGGREGATE,
         @Query(QUERY_PARAM_E) e: String = QUERY_VALUE_E
+//    ): HistoryInfoListContainerDto
     ): JsonHistoryObjectDto
 
     companion object {

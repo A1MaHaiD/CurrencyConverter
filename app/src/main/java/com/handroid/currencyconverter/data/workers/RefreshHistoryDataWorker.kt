@@ -3,10 +3,8 @@ package com.handroid.currencyconverter.data.workers
 import android.content.Context
 import androidx.work.*
 import com.handroid.currencyconverter.data.database.HistoryInfoDao
-import com.handroid.currencyconverter.data.database.model.HistoryInfoModel
 import com.handroid.currencyconverter.data.mapper.CoinMapper
 import com.handroid.currencyconverter.data.network.ApiService
-import com.handroid.currencyconverter.data.network.dto.namelist.CoinNameListDto
 import kotlinx.coroutines.delay
 import javax.inject.Inject
 
@@ -21,8 +19,8 @@ class RefreshHistoryDataWorker(
         while (true) {
             try {
 //                val fSyms = CoinNameListDto().names.toString()
-                val fSyms = "TRX"
-                val dbHistoryList = mutableListOf<HistoryInfoModel>()
+                val fSyms = "BTC"
+//                val dbHistoryList = mutableListOf<HistoryInfoModel>()
                 val historyByMonth = api.getCoinInfoPerDay(fSym = fSyms, limit = 30)
                 val historyInfoDtoList = mapper.mapJsonToListHistoryInfo(historyByMonth)
                 val dbHistory = historyInfoDtoList.map {
