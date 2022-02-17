@@ -89,7 +89,6 @@ class CoinMapper @Inject constructor() {
                     result.add(historyInfo)
                 }
             }
-
         return result
     }
 
