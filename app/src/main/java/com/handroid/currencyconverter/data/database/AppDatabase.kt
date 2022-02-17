@@ -9,7 +9,7 @@ import com.handroid.currencyconverter.data.database.model.HistoryInfoModel
 
 @Database(
     entities = [CoinInfoModel::class, HistoryInfoModel::class],
-    version = 4,
+    version = 5,
     exportSchema = false
 )
 abstract class AppDatabase(

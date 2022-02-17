@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import javax.inject.Inject
 @Entity(tableName = "history_per_day")
 data class HistoryInfoModel @Inject constructor(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     val time: Int,
     val high: Double?,
     val low: Double?,

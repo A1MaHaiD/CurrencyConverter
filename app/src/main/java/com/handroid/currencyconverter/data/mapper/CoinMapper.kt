@@ -6,7 +6,7 @@ import com.handroid.currencyconverter.data.database.model.HistoryInfoModel
 import com.handroid.currencyconverter.data.network.dto.detailinfo.CoinInfoDto
 import com.handroid.currencyconverter.data.network.dto.detailinfo.CoinInfoJsonContainerDto
 import com.handroid.currencyconverter.data.network.dto.history.HistoryInfoDto
-import com.handroid.currencyconverter.data.network.dto.history.HistoryInfoListDto
+import com.handroid.currencyconverter.data.network.dto.history.HistoryInfoListContainerDto
 import com.handroid.currencyconverter.data.network.dto.history.JsonHistoryObjectDto
 import com.handroid.currencyconverter.data.network.dto.namelist.CoinNameListDto
 import com.handroid.currencyconverter.domain.entity.CoinInfoEntity
