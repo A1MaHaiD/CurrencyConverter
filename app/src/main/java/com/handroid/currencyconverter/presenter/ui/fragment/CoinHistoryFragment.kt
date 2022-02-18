@@ -58,7 +58,7 @@ class CoinHistoryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this, viewModelFactory)[HistoryViewModel::class.java]
         viewModel.getHistoryInfoMonth.observe(viewLifecycleOwner){
-
+            Log.d(TAG,"$it")
         }
     }
 

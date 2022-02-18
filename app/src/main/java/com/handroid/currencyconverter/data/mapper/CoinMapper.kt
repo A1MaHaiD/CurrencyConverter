@@ -49,7 +49,7 @@ class CoinMapper @Inject constructor() {
     )
 
     fun mapHistoryModelToEntity(historyInfoModel: HistoryInfoModel) = HistoryInfoEntity(
-        time = convertTimestampToTime(historyInfoModel.time.toLong()),
+        time = convertTimestampToDate(historyInfoModel.time.toLong()),
         high = historyInfoModel.high.toString(),
         low = historyInfoModel.low.toString(),
         open = historyInfoModel.open.toString(),
@@ -102,8 +102,12 @@ class CoinMapper @Inject constructor() {
         return result
     }
 
-    fun mapNameListToIterationName(nameListDto: CoinNameListDto): String {
-        TODO()
+    fun mapNameListToIterationName(nameListDto: CoinNameListDto): List<String> {
+        val listOfNames = mutableListOf<String>()
+        nameListDto.names?.map {
+            listOfNames.add(it.copy().coinName?.name.toString())
+        }
+        return listOfNames
     }
 
     fun mapNameListToString(nameListDto: CoinNameListDto): String {
@@ -115,6 +119,15 @@ class CoinMapper @Inject constructor() {
     private fun convertTimestampToTime(timestamp: Long?): String {
         timestamp?.let {
             val sdf = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+            sdf.timeZone = TimeZone.getDefault()
+            return sdf.format(Date(Timestamp(timestamp * 1000).time))
+        }
+        return ""
+    }
+
+    private fun convertTimestampToDate(timestamp: Long?): String {
+        timestamp?.let {
+            val sdf = SimpleDateFormat( "d MMM yyyy", Locale.getDefault())
             sdf.timeZone = TimeZone.getDefault()
             return sdf.format(Date(Timestamp(timestamp * 1000).time))
         }
