@@ -5,6 +5,8 @@ import androidx.work.*
 import com.handroid.currencyconverter.data.database.HistoryInfoDao
 import com.handroid.currencyconverter.data.mapper.CoinMapper
 import com.handroid.currencyconverter.data.network.ApiService
+import com.handroid.currencyconverter.data.network.dto.history.HistoryInfoDto
+import com.handroid.currencyconverter.data.network.dto.namelist.CoinNameListDto
 import kotlinx.coroutines.delay
 import javax.inject.Inject
 
@@ -18,20 +20,29 @@ class RefreshHistoryDataWorker(
     override suspend fun doWork(): Result {
         while (true) {
             try {
-//                val fSyms = CoinNameListDto().names.toString()
-                val fSyms = "BTC"
-//                val dbHistoryList = mutableListOf<HistoryInfoModel>()
+                val listHistoryByMonth = mutableListOf<List<HistoryInfoDto>>()
+                val fSyms = CoinNameListDto().names.toString()
+//                val fSyms = "BTC" //пізніше потрібно змінити на списко String
                 val historyByMonth = api.getCoinInfoPerDay(fSym = fSyms, limit = 30)
-                val historyInfoDtoList = mapper.mapJsonToListHistoryInfo(historyByMonth)
-                val dbHistory = historyInfoDtoList.map {
-//                    dbHistoryList.add(
-                    mapper.mapHistoryDtoToModel(it)
-//                    )
+                val historyInfoDtoList = mapper.mapContainerToListHistoryInfo(historyByMonth)
+                for (i in fSyms) {
+                    listHistoryByMonth.add(historyInfoDtoList)
                 }
-                historyInfoDao.insertHistoryList(dbHistory)
+                val dbHistory = listHistoryByMonth.map {
+                    it.map {
+                        mapper.mapHistoryDtoToModel(it)
+                    }
+                }
+                for (i in fSyms) {
+                    dbHistory.map {
+                        it.map {
+                        }
+                        historyInfoDao.insertHistoryList(it)
+                    }
+                }
             } catch (e: Exception) {
             }
-            delay(30_000)
+            delay(5_000)
 //            delay(2_160_000)
         }
     }

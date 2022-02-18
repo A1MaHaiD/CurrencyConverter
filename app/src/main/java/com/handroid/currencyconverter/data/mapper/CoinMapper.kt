@@ -78,18 +78,32 @@ class CoinMapper @Inject constructor() {
         val result = mutableListOf<HistoryInfoDto>()
         val jsonObject = historyObject.jsonHistoryDay ?: return result
         val historyKeySet = jsonObject.keySet()
-            for (currencyKey in historyKeySet) {
-                val currencyJsonDay = jsonObject.getAsJsonObject(currencyKey)
-                val currencyKeySetDay = currencyJsonDay.keySet()
-                for (dayKey in currencyKeySetDay) {
-                    val historyInfo = Gson().fromJson(
-                        currencyJsonDay.getAsJsonObject(dayKey),
-                        HistoryInfoDto::class.java
-                    )
-                    result.add(historyInfo)
-                }
+        for (currencyKey in historyKeySet) {
+            val currencyJsonDay = jsonObject.getAsJsonObject(currencyKey)
+            val currencyKeySetDay = currencyJsonDay.keySet()
+            for (dayKey in currencyKeySetDay) {
+                val historyInfo = Gson().fromJson(
+                    currencyJsonDay.getAsJsonObject(dayKey),
+                    HistoryInfoDto::class.java
+                )
+                result.add(historyInfo)
             }
+        }
         return result
+    }
+
+    fun mapContainerToListHistoryInfo(historyInfoListContainerDto: HistoryInfoListContainerDto): List<HistoryInfoDto> {
+        val result = mutableListOf<HistoryInfoDto>()
+        val historyInfoListDto = historyInfoListContainerDto.history
+        val historyList = historyInfoListDto.historyList
+        historyList.map {
+            result.add(it)
+        }
+        return result
+    }
+
+    fun mapNameListToIterationName(nameListDto: CoinNameListDto): String {
+        TODO()
     }
 
     fun mapNameListToString(nameListDto: CoinNameListDto): String {
