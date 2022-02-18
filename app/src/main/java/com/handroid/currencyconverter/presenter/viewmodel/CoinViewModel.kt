@@ -1,7 +1,6 @@
 package com.handroid.currencyconverter.presenter.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.handroid.currencyconverter.di.annotation.ApplicationScope
 import com.handroid.currencyconverter.domain.usecase.GetCoinItemUseCase
 import com.handroid.currencyconverter.domain.usecase.GetCoinListUseCase
 import com.handroid.currencyconverter.domain.usecase.LoadCoinDataUseCase

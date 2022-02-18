@@ -26,7 +26,7 @@ class RefreshCoinDataWorker (
                 coinInfoDao.insertPriceList(dbModelList)
             } catch (e: Exception) {
             }
-            delay(30_000)
+            delay(60_000)
         }
     }
 

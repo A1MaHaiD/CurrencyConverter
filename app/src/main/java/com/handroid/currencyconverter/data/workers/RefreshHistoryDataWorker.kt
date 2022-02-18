@@ -21,10 +21,10 @@ class RefreshHistoryDataWorker(
         while (true) {
             try {
                 val itList = mutableListOf<HistoryInfoModel>()
+                val listHistoryByMonth = mutableListOf<List<HistoryInfoDto>>()
                 val topCoins = api.getTopCoinInfo(limit = 30)
                 val fSyms = mapper.mapNameListToIterationName(topCoins)
                 for (fsym in fSyms) {
-                    val listHistoryByMonth = mutableListOf<List<HistoryInfoDto>>()
                     val historyByMonth = api.getCoinInfoPerDay(fSym = fsym, limit = 30)
                     val historyInfoDtoList = mapper.mapContainerToListHistoryInfo(historyByMonth)
                     listHistoryByMonth.add(historyInfoDtoList)
@@ -33,19 +33,17 @@ class RefreshHistoryDataWorker(
                             mapper.mapHistoryDtoToModel(it)
                         }
                     }
-                    for (i in listHistoryByMonth) {
-                        dbHistory.map {
-                            it.map {
-                                itList.add(it)
-                            }
+                    dbHistory.map {
+                        it.map {
+                            itList.add(it)
+                            historyInfoDao.insertHistoryList(itList)
                         }
                     }
                 }
-                historyInfoDao.insertHistoryList(itList)
             } catch (e: Exception) {
             }
-            delay(30_000)
-//            delay(2_160_000)
+//            delay(30_000)
+            delay(2_160_000)
         }
     }
 

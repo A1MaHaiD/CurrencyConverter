@@ -2,7 +2,6 @@ package com.handroid.currencyconverter.presenter.ui.fragment
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,12 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.handroid.currencyconverter.databinding.FragmentCoinHistoryBinding
 import com.handroid.currencyconverter.presenter.CoinApp
-import com.handroid.currencyconverter.presenter.adapters.CoinInfoAdapter
 import com.handroid.currencyconverter.presenter.adapters.HistoryInfoAdapter
-import com.handroid.currencyconverter.presenter.viewmodel.CoinViewModel
 import com.handroid.currencyconverter.presenter.viewmodel.HistoryViewModel
 import com.handroid.currencyconverter.presenter.viewmodel.ViewModelFactory
-import com.squareup.picasso.Picasso
 import javax.inject.Inject
 
 class CoinHistoryFragment : Fragment() {
