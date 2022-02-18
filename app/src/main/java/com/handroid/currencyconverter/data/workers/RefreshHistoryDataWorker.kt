@@ -3,8 +3,10 @@ package com.handroid.currencyconverter.data.workers
 import android.content.Context
 import androidx.work.*
 import com.handroid.currencyconverter.data.database.HistoryInfoDao
+import com.handroid.currencyconverter.data.database.model.HistoryInfoModel
 import com.handroid.currencyconverter.data.mapper.CoinMapper
 import com.handroid.currencyconverter.data.network.ApiService
+import com.handroid.currencyconverter.data.network.dto.history.HistoryInfoDto
 import kotlinx.coroutines.delay
 import javax.inject.Inject
 
@@ -18,17 +20,28 @@ class RefreshHistoryDataWorker(
     override suspend fun doWork(): Result {
         while (true) {
             try {
-//                val fSyms = CoinNameListDto().names.toString()
-                val fSyms = "BTC"
-//                val dbHistoryList = mutableListOf<HistoryInfoModel>()
-                val historyByMonth = api.getCoinInfoPerDay(fSym = fSyms, limit = 30)
-                val historyInfoDtoList = mapper.mapJsonToListHistoryInfo(historyByMonth)
-                val dbHistory = historyInfoDtoList.map {
-//                    dbHistoryList.add(
-                    mapper.mapHistoryDtoToModel(it)
-//                    )
+                val itList = mutableListOf<HistoryInfoModel>()
+                val topCoins = api.getTopCoinInfo(limit = 30)
+                val fSyms = mapper.mapNameListToIterationName(topCoins)
+                for (fsym in fSyms) {
+                    val listHistoryByMonth = mutableListOf<List<HistoryInfoDto>>()
+                    val historyByMonth = api.getCoinInfoPerDay(fSym = fsym, limit = 30)
+                    val historyInfoDtoList = mapper.mapContainerToListHistoryInfo(historyByMonth)
+                    listHistoryByMonth.add(historyInfoDtoList)
+                    val dbHistory = listHistoryByMonth.map {
+                        it.map {
+                            mapper.mapHistoryDtoToModel(it)
+                        }
+                    }
+                    for (i in listHistoryByMonth) {
+                        dbHistory.map {
+                            it.map {
+                                itList.add(it)
+                            }
+                        }
+                    }
                 }
-                historyInfoDao.insertHistoryList(dbHistory)
+                historyInfoDao.insertHistoryList(itList)
             } catch (e: Exception) {
             }
             delay(30_000)

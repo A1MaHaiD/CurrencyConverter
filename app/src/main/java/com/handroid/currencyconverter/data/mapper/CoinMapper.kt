@@ -49,7 +49,7 @@ class CoinMapper @Inject constructor() {
     )
 
     fun mapHistoryModelToEntity(historyInfoModel: HistoryInfoModel) = HistoryInfoEntity(
-        time = convertTimestampToTime(historyInfoModel.time.toLong()),
+        time = convertTimestampToDate(historyInfoModel.time.toLong()),
         high = historyInfoModel.high.toString(),
         low = historyInfoModel.low.toString(),
         open = historyInfoModel.open.toString(),
@@ -78,18 +78,36 @@ class CoinMapper @Inject constructor() {
         val result = mutableListOf<HistoryInfoDto>()
         val jsonObject = historyObject.jsonHistoryDay ?: return result
         val historyKeySet = jsonObject.keySet()
-            for (currencyKey in historyKeySet) {
-                val currencyJsonDay = jsonObject.getAsJsonObject(currencyKey)
-                val currencyKeySetDay = currencyJsonDay.keySet()
-                for (dayKey in currencyKeySetDay) {
-                    val historyInfo = Gson().fromJson(
-                        currencyJsonDay.getAsJsonObject(dayKey),
-                        HistoryInfoDto::class.java
-                    )
-                    result.add(historyInfo)
-                }
+        for (currencyKey in historyKeySet) {
+            val currencyJsonDay = jsonObject.getAsJsonObject(currencyKey)
+            val currencyKeySetDay = currencyJsonDay.keySet()
+            for (dayKey in currencyKeySetDay) {
+                val historyInfo = Gson().fromJson(
+                    currencyJsonDay.getAsJsonObject(dayKey),
+                    HistoryInfoDto::class.java
+                )
+                result.add(historyInfo)
             }
+        }
         return result
+    }
+
+    fun mapContainerToListHistoryInfo(historyInfoListContainerDto: HistoryInfoListContainerDto): List<HistoryInfoDto> {
+        val result = mutableListOf<HistoryInfoDto>()
+        val historyInfoListDto = historyInfoListContainerDto.history
+        val historyList = historyInfoListDto.historyList
+        historyList.map {
+            result.add(it)
+        }
+        return result
+    }
+
+    fun mapNameListToIterationName(nameListDto: CoinNameListDto): List<String> {
+        val listOfNames = mutableListOf<String>()
+        nameListDto.names?.map {
+            listOfNames.add(it.copy().coinName?.name.toString())
+        }
+        return listOfNames
     }
 
     fun mapNameListToString(nameListDto: CoinNameListDto): String {
@@ -101,6 +119,15 @@ class CoinMapper @Inject constructor() {
     private fun convertTimestampToTime(timestamp: Long?): String {
         timestamp?.let {
             val sdf = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+            sdf.timeZone = TimeZone.getDefault()
+            return sdf.format(Date(Timestamp(timestamp * 1000).time))
+        }
+        return ""
+    }
+
+    private fun convertTimestampToDate(timestamp: Long?): String {
+        timestamp?.let {
+            val sdf = SimpleDateFormat( "d MMM yyyy", Locale.getDefault())
             sdf.timeZone = TimeZone.getDefault()
             return sdf.format(Date(Timestamp(timestamp * 1000).time))
         }

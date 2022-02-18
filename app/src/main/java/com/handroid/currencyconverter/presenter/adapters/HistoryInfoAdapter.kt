@@ -1,4 +1,33 @@
 package com.handroid.currencyconverter.presenter.adapters
 
-class HistoryInfoAdapter {
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.ListAdapter
+import com.handroid.currencyconverter.databinding.ItemDayHistoryBinding
+import com.handroid.currencyconverter.domain.entity.HistoryInfoEntity
+import javax.inject.Inject
+
+class HistoryInfoAdapter @Inject constructor(
+    private val context: Context
+) :
+    ListAdapter<HistoryInfoEntity, HistoryInfoVH>(DiffHistoryCallback) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryInfoVH {
+        val binding =
+            ItemDayHistoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return HistoryInfoVH(binding)
+    }
+
+    override fun onBindViewHolder(holder: HistoryInfoVH, position: Int) {
+        val day = getItem(position)
+        with(holder.binding) {
+            with(day) {
+                tvDate.text = time
+                tvMinPrice.text = low
+                tvMaxPrice.text = high
+                tvOpen.text = open
+                tvClose.text = close
+            }
+        }
+    }
 }

@@ -31,8 +31,8 @@ interface ApiService {
         @Query(QUERY_PARAM_LIMIT) limit: Int,
         @Query(QUERY_PARAM_AGGREGATE) aggregate: Int = QUERY_VAlUE_AGGREGATE,
         @Query(QUERY_PARAM_E) e: String = QUERY_VALUE_E
-//    ): HistoryInfoListContainerDto
-    ): JsonHistoryObjectDto
+    ): HistoryInfoListContainerDto
+//    ): JsonHistoryObjectDto
 
     companion object {
         const val QUERY_PARAM_API_KEY = "api_key"
