@@ -95,7 +95,7 @@
             android:id="@+id/tv_open"
             style="@style/label_text"
             android:layout_marginStart="8dp"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/tertiary_text_light"
             app:layout_constraintStart_toEndOf="@id/tv_open_label"
             app:layout_constraintTop_toBottomOf="@id/tv_max_label"
             tools:text="7246.2" />
@@ -118,7 +118,7 @@
             android:id="@+id/tv_close"
             style="@style/label_text"
             android:layout_marginStart="8dp"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/holo_blue_dark"
             app:layout_constraintStart_toEndOf="@id/tv_close_label"
             app:layout_constraintTop_toBottomOf="@id/tv_open_label"
             tools:text="7352.5" />

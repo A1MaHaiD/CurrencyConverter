@@ -7,7 +7,7 @@
     tools:context=".presenter.ui.fragment.CoinHistoryFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-
+        android:id="@+id/rv_history_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -17,6 +17,4 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/item_day_history" />
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>
-

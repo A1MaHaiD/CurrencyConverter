@@ -11,6 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.handroid.currencyconverter.databinding.FragmentCoinHistoryBinding
 import com.handroid.currencyconverter.presenter.CoinApp
+import com.handroid.currencyconverter.presenter.adapters.CoinInfoAdapter
+import com.handroid.currencyconverter.presenter.adapters.HistoryInfoAdapter
 import com.handroid.currencyconverter.presenter.viewmodel.CoinViewModel
 import com.handroid.currencyconverter.presenter.viewmodel.HistoryViewModel
 import com.handroid.currencyconverter.presenter.viewmodel.ViewModelFactory
@@ -56,9 +58,11 @@ class CoinHistoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val adapter = HistoryInfoAdapter(this.requireActivity())
+        binding.rvHistoryList.adapter = adapter
         viewModel = ViewModelProvider(this, viewModelFactory)[HistoryViewModel::class.java]
-        viewModel.getHistoryInfoMonth.observe(viewLifecycleOwner){
-            Log.d(TAG,"$it")
+        viewModel.getHistoryInfoMonth.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
         }
     }
 

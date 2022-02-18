@@ -18,7 +18,6 @@ class CoinInfoAdapter @Inject constructor(
     var onCoinClickListener: OnCoinClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinInfoVH {
-        Log.d("CoinInfoAdapter", "onCreateViewHolder")
         val binding =
             ItemCoinInfoBinding.inflate(
                 LayoutInflater.from(parent.context),
