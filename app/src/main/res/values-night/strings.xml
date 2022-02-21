@@ -8,11 +8,10 @@
     <string name="min_price">At least per day:</string>
     <string name="max_price">Maximum per day:</string>
     <string name="last_trade">Last trade:</string>
-    <string name="last_update">Updated</string>
     <string name="understood">Understood</string>
     <string name="about_application">About application</string>
     <string name="introductory_information">This program was created solely for educational purposes, to consolidate skills, and the use of certain libraries, as part of a test task. This application has a list of cryptocurrencies, clicking on one of them opens a piece of detailed information, then there will be a button with data for the week and month. In the near future, these and other features will be added to the application.</string>
-    <string name="date">Date:</string>
+    <string name="date">Date: %s</string>
     <string name="open">Course at the beginning of the day:</string>
     <string name="close">Course at the end of the day:</string>
 </resources>

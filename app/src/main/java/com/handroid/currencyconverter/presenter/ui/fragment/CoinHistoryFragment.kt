@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.handroid.currencyconverter.databinding.FragmentCoinHistoryBinding
-import com.handroid.currencyconverter.presenter.CoinApp
+import com.handroid.currencyconverter.CoinApp
 import com.handroid.currencyconverter.presenter.adapters.HistoryInfoAdapter
 import com.handroid.currencyconverter.presenter.viewmodel.HistoryViewModel
 import com.handroid.currencyconverter.presenter.viewmodel.ViewModelFactory

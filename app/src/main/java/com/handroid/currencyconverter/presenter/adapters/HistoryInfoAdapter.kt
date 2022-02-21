@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
+import com.handroid.currencyconverter.R
 import com.handroid.currencyconverter.databinding.ItemDayHistoryBinding
 import com.handroid.currencyconverter.domain.entity.HistoryInfoEntity
 import javax.inject.Inject
@@ -22,7 +23,9 @@ class HistoryInfoAdapter @Inject constructor(
         val day = getItem(position)
         with(holder.binding) {
             with(day) {
-                tvDate.text = time
+                val lastUpdateTemplate =
+                    context.resources.getString(R.string.date)
+                tvDate.text = String.format(lastUpdateTemplate, time)
                 tvMinPrice.text = low
                 tvMaxPrice.text = high
                 tvOpen.text = open
