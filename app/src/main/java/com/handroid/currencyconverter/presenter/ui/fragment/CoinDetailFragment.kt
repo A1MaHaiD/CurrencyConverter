@@ -1,7 +1,7 @@
 package com.handroid.currencyconverter.presenter.ui.fragment
 
 import android.content.Context
-import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.handroid.currencyconverter.R
-import com.handroid.currencyconverter.presenter.CoinApp
 import com.handroid.currencyconverter.databinding.FragmentCoinDetailBinding
+import com.handroid.currencyconverter.CoinApp
+import com.handroid.currencyconverter.R
 import com.handroid.currencyconverter.presenter.viewmodel.CoinViewModel
 import com.handroid.currencyconverter.presenter.viewmodel.ViewModelFactory
 import com.squareup.picasso.Picasso
@@ -34,7 +34,6 @@ class CoinDetailFragment : Fragment() {
     private var _binding: FragmentCoinDetailBinding? = null
     private val binding: FragmentCoinDetailBinding
         get() = _binding ?: throw RuntimeException("CoinDetailFragment == null")
-
 
     override fun onAttach(context: Context) {
         component.inject(this)
@@ -61,11 +60,14 @@ class CoinDetailFragment : Fragment() {
         viewModel = ViewModelProvider(this, viewModelFactory)[CoinViewModel::class.java]
         viewModel.getDetailInfo(getSymbol()).observe(viewLifecycleOwner) {
             with(binding) {
+                val lastUpdateTemplate =
+                    requireActivity().resources.getString(R.string.last_update_template)
                 tvPrice.text = it.price.toString()
                 tvMinPrice.text = it.lowDay.toString()
                 tvMaxPrice.text = it.highDay.toString()
                 tvLastMarket.text = it.lastMarket.toString()
-                tvLastUpdate.text = it.lastUpdate
+                tvLastUpdate.text =
+                    String.format(lastUpdateTemplate, it.lastUpdate)
                 tvFromSymbol.text = it.fromSymbol
                 tvToSymbol.text = it.toSymbol
                 Picasso.get().load(it.imageUrl).into(ivLogoCoin)
@@ -87,6 +89,7 @@ class CoinDetailFragment : Fragment() {
 
     private fun launchCoinHistoryFragment() {
         findNavController().navigate(
-            CoinDetailFragmentDirections.actionCoinDetailFragmentToCoinHistoryFragment(getSymbol()))
+            CoinDetailFragmentDirections.actionCoinDetailFragmentToCoinHistoryFragment(getSymbol())
+        )
     }
 }

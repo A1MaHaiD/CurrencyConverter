@@ -1,12 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
+    <!-- Colors night theme -->
+    <!-- primary -->
+    <color name="primary">#6750A4</color>
+    <color name="on_primary">#FFFFFF</color>
+    <color name="primary_variant">#21005D</color>
+    <color name="primary_container">#EADDFF</color>
+    <color name="on_primary_container">#21005D</color>
+    <!-- secondary -->
+    <color name="secondary">#625B71</color>
+    <color name="on_secondary">#FFFFFF</color>
+    <color name="secondary_variant">#1D192B</color>
+    <color name="secondary_container">#E8DEF8</color>
+    <color name="on_secondary_container">#1D192B</color>
+    <!-- tertiary -->
+    <color name="tertiary">#7D5260</color>
+    <color name="on_tertiary">#FFFFFF</color>
+    <color name="tertiary_container">#FFD8E4</color>
+    <color name="on_tertiary_container">#31111D</color>
+    <!-- error -->
+    <color name="error">#B3261E</color>
+    <color name="on_error">#FFFFFF</color>
+    <color name="error_container">#F9DEDC</color>
+    <color name="on_error_container">#410E0B</color>
+    <!-- background -->
+    <color name="background">#FFFBFE</color>
+    <color name="on_background">#1C1B1F</color>
+    <color name="surface">#FFFBFE</color>
+    <color name="on_surface">#1C1B1F</color>
+    <!-- outline -->
+    <color name="outline">#79747E</color>
+    <color name="surface_variant">#E7E0EC</color>
+    <color name="on_surface_variant">#49454F</color>
+
+    <!-- Colors night theme -->
+    <!-- primary_night -->
+    <color name="primary_night">#D0BCFF</color>
+    <color name="on_primary_night">#381E72</color>
+    <color name="primary_variant_night">#EADDFF</color>
+    <color name="primary_container_night">#4F378B</color>
+    <color name="on_primary_container_night">#EADDFF</color>
+    <!-- secondary_night -->
+    <color name="secondary_night">#CCC2DC</color>
+    <color name="on_secondary_night">#332D41</color>
+    <color name="secondary_variant_night">#E8DEF8</color>
+    <color name="secondary_container_night">#4A4458</color>
+    <color name="on_secondary_container_night">#E8DEF8</color>
+    <!-- tertiary_night -->
+    <color name="tertiary_night">#EFB8C8</color>
+    <color name="on_tertiary_night">#492532</color>
+    <color name="tertiary_container_night">#633B48</color>
+    <color name="on_tertiary_container_night">#FFD8E4</color>
+    <!-- error_night -->
+    <color name="error_night">#F2B8B5</color>
+    <color name="on_error_night">#601410</color>
+    <color name="error_container_night">#8C1D18</color>
+    <color name="on_error_container_night">#F9DEDC</color>
+    <!-- background_night -->
+    <color name="background_night">#1C1B1F</color>
+    <color name="on_background_night">#E6E1E5</color>
+    <color name="surface_night">#1C1B1F</color>
+    <color name="on_surface_night">#E6E1E5</color>
+    <!-- outline_night -->
+    <color name="outline_night">#938F99</color>
+    <color name="surface_variant_night">#49454F</color>
+    <color name="on_surface_variant_night">#CAC4D0</color>
+
     <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
     <!-- color for activity_coin_detail -->
     <color name="grey">#63000000</color>
 </resources>

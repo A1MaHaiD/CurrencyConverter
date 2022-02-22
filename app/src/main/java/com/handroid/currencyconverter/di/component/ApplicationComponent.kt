@@ -5,7 +5,7 @@ import com.handroid.currencyconverter.di.annotation.ApplicationScope
 import com.handroid.currencyconverter.di.module.DataModule
 import com.handroid.currencyconverter.di.module.ViewModelModule
 import com.handroid.currencyconverter.di.module.WorkerModule
-import com.handroid.currencyconverter.presenter.CoinApp
+import com.handroid.currencyconverter.CoinApp
 import com.handroid.currencyconverter.presenter.ui.CoinActivity
 import com.handroid.currencyconverter.presenter.ui.fragment.CoinDetailFragment
 import com.handroid.currencyconverter.presenter.ui.fragment.CoinHistoryFragment

@@ -1,6 +1,11 @@
 package com.handroid.currencyconverter.data.mapper
 
+import android.util.Log
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.remoteconfig.ktx.remoteConfig
+import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 import com.google.gson.Gson
+import com.handroid.currencyconverter.R
 import com.handroid.currencyconverter.data.database.model.CoinInfoModel
 import com.handroid.currencyconverter.data.database.model.HistoryInfoModel
 import com.handroid.currencyconverter.data.network.dto.detailinfo.CoinInfoDto
@@ -9,6 +14,7 @@ import com.handroid.currencyconverter.data.network.dto.history.HistoryInfoDto
 import com.handroid.currencyconverter.data.network.dto.history.HistoryInfoListContainerDto
 import com.handroid.currencyconverter.data.network.dto.history.JsonHistoryObjectDto
 import com.handroid.currencyconverter.data.network.dto.namelist.CoinNameListDto
+import com.handroid.currencyconverter.data.workers.RefreshCoinDataWorker
 import com.handroid.currencyconverter.domain.entity.CoinInfoEntity
 import com.handroid.currencyconverter.domain.entity.HistoryInfoEntity
 import java.sql.Timestamp
@@ -105,7 +111,7 @@ class CoinMapper @Inject constructor() {
     fun mapNameListToIterationName(nameListDto: CoinNameListDto): List<String> {
         val listOfNames = mutableListOf<String>()
         nameListDto.names?.map {
-            listOfNames.add(it.copy().coinName?.name.toString())
+            listOfNames.add(it.copy().coinName?.name.toString()) //TODO firebase remote config
         }
         return listOfNames
     }
@@ -113,7 +119,7 @@ class CoinMapper @Inject constructor() {
     fun mapNameListToString(nameListDto: CoinNameListDto): String {
         return nameListDto.names?.map {
             it.coinName?.name
-        }?.joinToString(",") ?: ""
+        }?.joinToString(",") ?: "" //TODO firebase remote config
     }
 
     private fun convertTimestampToTime(timestamp: Long?): String {
@@ -127,14 +133,46 @@ class CoinMapper @Inject constructor() {
 
     private fun convertTimestampToDate(timestamp: Long?): String {
         timestamp?.let {
-            val sdf = SimpleDateFormat( "d MMM yyyy", Locale.getDefault())
+            val sdf = SimpleDateFormat("d MMM yyyy", Locale.getDefault())
             sdf.timeZone = TimeZone.getDefault()
             return sdf.format(Date(Timestamp(timestamp * 1000).time))
         }
         return ""
     }
 
+    private val remoteConfig by lazy {
+        Firebase.remoteConfig
+    }
+
+    private fun coinConfig() {
+        val configSettings = remoteConfigSettings {
+            minimumFetchIntervalInSeconds = 3600
+        }
+        with(remoteConfig) {
+            setConfigSettingsAsync(configSettings)
+            setDefaultsAsync(R.xml.show_default_crypto)
+            getValueRemoteConfig()
+        }
+    }
+
+    private fun getValueRemoteConfig() {
+        remoteConfig.fetchAndActivate()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val updated = task.result
+                    Log.d(RefreshCoinDataWorker.NAME, "Config params updated: $updated")
+                    //TODO()
+                } else {
+                    remoteConfig.getString(SHOW_DEFAULT_CRYPTO)
+                    //TODO()
+                }
+            }
+    }
+
     companion object {
         private const val BASE_IMAGE_URL = "https://cryptocompare.com"
+
+        const val SHOW_DEFAULT_CRYPTO = "show_default_crypto"
+        const val ON_SHOW_CONFIG = "on_show_config"
     }
 }

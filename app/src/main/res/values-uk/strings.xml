@@ -7,11 +7,10 @@
     <string name="min_price">Мінімум за день:</string>
     <string name="max_price">Максимум за день:</string>
     <string name="last_trade">Остання торгівля:</string>
-    <string name="last_update">Оновленно</string>
     <string name="understood">Зрозумів</string>
     <string name="about_application">Про додаток</string>
     <string name="introductory_information">Ця програма була створена виключно для навчальних цілей, для закріплення навичок та використання певних бібліотек, як частина тестового завдання. У цьому додатку є список криптовалют, при натисканні на одну з них відкривається фрагмент детальної інформації, потім буде кнопка з даними за тиждень і місяць. Найближчим часом ці та інші функції будуть додані до програми.</string>
-    <string name="date">Дата:</string>
+    <string name="date">Дата: %s</string>
     <string name="open">Курс на початку дня:</string>
     <string name="close">Курс в кінці дня:</string>
 </resources>

@@ -8,7 +8,7 @@ import com.handroid.currencyconverter.data.network.ApiService
 import kotlinx.coroutines.delay
 import javax.inject.Inject
 
-class RefreshCoinDataWorker (
+class RefreshCoinDataWorker(
     context: Context,
     workerParameters: WorkerParameters,
     private val coinInfoDao: CoinInfoDao,
@@ -26,13 +26,12 @@ class RefreshCoinDataWorker (
                 coinInfoDao.insertPriceList(dbModelList)
             } catch (e: Exception) {
             }
-            delay(30_000)
+            delay(60_000)
         }
     }
 
     companion object {
         const val NAME = "RefreshDataWorker"
-
         fun makeRequest(): OneTimeWorkRequest {
             return OneTimeWorkRequestBuilder<RefreshCoinDataWorker>()
                 .setConstraints(makeConstraints())
@@ -48,7 +47,7 @@ class RefreshCoinDataWorker (
         private val coinInfoDao: CoinInfoDao,
         private val api: ApiService,
         private val mapper: CoinMapper
-    ):ChildWorkerFactory {
+    ) : ChildWorkerFactory {
         override fun create(
             context: Context,
             workerParameters: WorkerParameters

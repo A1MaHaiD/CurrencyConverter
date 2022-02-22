@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.handroid.currencyconverter.databinding.FragmentCoinListBinding
 import com.handroid.currencyconverter.domain.entity.CoinInfoEntity
-import com.handroid.currencyconverter.presenter.CoinApp
+import com.handroid.currencyconverter.CoinApp
 import com.handroid.currencyconverter.presenter.adapters.CoinInfoAdapter
 import com.handroid.currencyconverter.presenter.viewmodel.CoinViewModel
 import com.handroid.currencyconverter.presenter.viewmodel.ViewModelFactory
